@@ -1,15 +1,16 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
-}
+//import net.minecraftforge.gradle.userdev.tasks.JarJar
 
 plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.neoforged.gradle' version '6.0.18'
+    id 'org.spongepowered.mixin' version '0.7.38'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.2.0'
+    id 'org.moddingx.modgradle.mapping' version '4.0.4'
+    id 'org.moddingx.modgradle.sourcejar' version '4.0.4' apply false
+    id 'io.github.0ffz.github-packages' version '1.2.1'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'com.modrinth.minotaur' version '2.8.5'
 }
 
 repositories {
@@ -19,32 +20,33 @@ repositories {
     flatDir { dirs 'deps' }
 }
 
-apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'net.neoforged.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-group = 'com.refinedmods'
+version = "${mod_version}-${mc_version}-neoforge"
+group = 'com.refinedmods.refinedpipes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'refinedpipes'
-version = '0.6.3'
-
-if (System.getenv('GITHUB_SHA') != null) {
-    version += '+' + System.getenv('GITHUB_SHA').substring(0, 7)
-}
-
-if (System.getenv('RELEASE') != null) {
-    version = System.getenv('RELEASE').substring(1) // remove 'v'
-}
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+
+    mappings channel: 'sugarcane', version: project.mappings
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.A
 
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
             property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'refinedpipes'
+
             mods {
                 refinedpipes {
                     source sourceSets.main
@@ -54,20 +56,46 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
             property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'refinedpipes'
+
             mods {
                 refinedpipes {
                     source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            mods {
+                refinedpipes {
+                    source sourceSets.main
+
                 }
             }
         }
 
         data {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'refinedpipes', '--all', '--output', file('src/generated/resources/')
+
+            args '--mod', 'refinedpipes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
             mods {
                 refinedpipes {
                     source sourceSets.main
@@ -77,17 +105,43 @@ minecraft {
     }
 }
 
-processResources {
-    inputs.property 'version', project.version
+repositories {
 
-    filesMatching('META-INF/mods.toml') {
-        expand 'version': project.version
+    flatDir {
+        dir 'libs'
+    }
+
+    maven { url = "https://jitpack.io" }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.theillusivec4.top/" }
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://gitlab.com/api/v4/projects/21830712/packages/maven" }
+    maven { url = 'https://maven.neoforged.net/releases/' }
+
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        url "https://cursemaven.com"
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.32'
+    minecraft "net.neoforged:forge:${project.mc_version}-${project.neoforge_version}"
     runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.4.171")
+    compileOnly "mezz.jei:jei-1.20.1-common:${project.jei_version}"
+    compileOnly "mezz.jei:jei-1.20.1-forge:${project.jei_version}"
+    implementation fg.deobf("curse.maven:jade-324717:${project.jade_version}")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:${project.spark_version}")
+    runtimeOnly fg.deobf("curse.maven:suggestion-provider-fix-469647:${project.suggestion_provider_fix_version}")
+    runtimeOnly fg.deobf("curse.maven:embeddium-908741:${project.embeddium_version}")
+    runtimeOnly fg.deobf("curse.maven:appleskin-248787:${project.appleskin_version}")
+
 }
 
 jar {
@@ -104,47 +158,20 @@ jar {
     }
 }
 
-if (System.getenv("CURSEFORGE_TOKEN") != null) {
-    curseforge {
-        apiKey = System.getenv("CURSEFORGE_TOKEN")
-        project {
-            id = '370696'
-            changelog = System.getenv("CHANGELOG")
-            changelogType = 'markdown'
-            releaseType = project.version.toString().contains('beta') ? 'beta' : (project.version.toString().contains('alpha') ? 'alpha' : 'release')
-            addGameVersion "1.18.2"
-            mainArtifact(jar) {
-                displayName = "v$project.version"
-            }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
         }
     }
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/refinedmods/refinedpipes")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-        maven {
-            name = "CreeperHost"
-            url = uri("https://maven.creeperhost.net/release")
-            credentials {
-                username = System.getenv("CREEPERHOST_MAVEN_USERNAME")
-                password = System.getenv("CREEPERHOST_MAVEN_TOKEN")
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
