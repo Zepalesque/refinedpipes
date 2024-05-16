@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.energy;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.Network;
 import com.refinedmods.refinedpipes.network.energy.EnergyNetwork;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class EnergyPipe extends Pipe {
-    public static final ResourceLocation ID = new ResourceLocation(RefinedPipes.ID, "energy");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "energy");
 
     private final EnergyPipeType type;
 

@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.block;
+package com.refinedmods.refinedpipes.block.pipe;
 
 import com.refinedmods.refinedpipes.blockentity.EnergyPipeBlockEntity;
 import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipeEnergyStorage;
@@ -10,6 +10,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +22,6 @@ public class EnergyPipeBlock extends PipeBlock implements EntityBlock {
         super(shapeCache);
 
         this.type = type;
-        this.setRegistryName(type.getId());
     }
 
     public EnergyPipeType getType() {
@@ -55,7 +55,7 @@ public class EnergyPipeBlock extends PipeBlock implements EntityBlock {
             return false;
         }
 
-        IEnergyStorage energyStorage = facingBlockEntityy.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).orElse(null);
+        IEnergyStorage energyStorage = facingBlockEntityy.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).orElse(null);
         if (energyStorage == null) {
             return false;
         }

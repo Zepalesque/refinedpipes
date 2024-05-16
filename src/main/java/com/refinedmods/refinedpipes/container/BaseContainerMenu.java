@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.container;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.container.slot.FilterSlot;
 import com.refinedmods.refinedpipes.container.slot.FluidFilterSlot;
 import com.refinedmods.refinedpipes.message.FluidFilterSlotUpdateMessage;
@@ -105,7 +105,7 @@ public class BaseContainerMenu extends AbstractContainerMenu {
             if (!cached.equals(actual)) {
                 this.fluids.set(i, actual.copy());
 
-                RefinedPipes.NETWORK.sendToClient((ServerPlayer) player, new FluidFilterSlotUpdateMessage(slot.getInventoryIndex(), actual));
+                Pipes.NETWORK.sendToClient((ServerPlayer) player, new FluidFilterSlotUpdateMessage(slot.getInventoryIndex(), actual));
             }
         }
     }

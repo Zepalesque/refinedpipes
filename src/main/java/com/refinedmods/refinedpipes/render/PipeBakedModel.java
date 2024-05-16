@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
-import com.refinedmods.refinedpipes.block.PipeBlock;
+import com.refinedmods.refinedpipes.block.pipe.PipeBlock;
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;

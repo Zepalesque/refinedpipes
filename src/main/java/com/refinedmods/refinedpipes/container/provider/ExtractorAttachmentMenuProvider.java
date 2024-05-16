@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.container.provider;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.container.ExtractorAttachmentContainerMenu;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
@@ -42,7 +42,7 @@ public class ExtractorAttachmentMenuProvider implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("item." + RefinedPipes.ID + "." + attachment.getType().getId().getPath() + "_attachment");
+        return Component.translatable("item." + Pipes.ID + "." + attachment.getType().getId().getPath() + "_attachment");
     }
 
     @Nullable

@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.item;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.Network;
 import com.refinedmods.refinedpipes.network.graph.NetworkGraphScannerResult;
 import com.refinedmods.refinedpipes.network.item.routing.DestinationPathCache;
@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ItemNetwork extends Network {
-    public static final ResourceLocation TYPE = new ResourceLocation(RefinedPipes.ID, "item");
+    public static final ResourceLocation TYPE = new ResourceLocation(Pipes.ID, "item");
 
     private DestinationPathCache destinationPathCache;
 

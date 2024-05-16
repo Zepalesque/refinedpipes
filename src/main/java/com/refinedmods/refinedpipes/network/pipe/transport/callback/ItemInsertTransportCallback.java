@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.transport.callback;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.Network;
 import com.refinedmods.refinedpipes.util.DirectionUtil;
 import net.minecraft.core.BlockPos;
@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 
 public class ItemInsertTransportCallback implements TransportCallback {
-    public static final ResourceLocation ID = new ResourceLocation(RefinedPipes.ID, "item_insert");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item_insert");
     private static final Logger LOGGER = LogManager.getLogger(ItemInsertTransportCallback.class);
     private final BlockPos itemHandlerPosition;
     private final Direction incomingDirection;

@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.block;
+package com.refinedmods.refinedpipes.block.pipe;
 
 import com.refinedmods.refinedpipes.blockentity.ItemPipeBlockEntity;
 import com.refinedmods.refinedpipes.network.pipe.item.ItemPipeType;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemPipeBlock extends PipeBlock implements EntityBlock {
@@ -22,7 +22,6 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
         super(shapeCache);
 
         this.type = type;
-        this.setRegistryName(type.getId());
     }
 
     public ItemPipeType getType() {
@@ -53,7 +52,7 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
         BlockEntity facingBlockEntity = world.getBlockEntity(pos.relative(direction));
 
         return facingBlockEntity != null
-            && facingBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent();
+            && facingBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite()).isPresent();
     }
 
     @Override

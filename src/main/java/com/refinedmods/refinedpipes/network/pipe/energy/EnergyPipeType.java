@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.energy;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.RefinedPipesBlockEntities;
 import com.refinedmods.refinedpipes.blockentity.EnergyPipeBlockEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -26,15 +26,15 @@ public enum EnergyPipeType {
     public int getCapacity() {
         switch (this) {
             case BASIC:
-                return RefinedPipes.SERVER_CONFIG.getBasicEnergyPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getBasicEnergyPipe().getCapacity();
             case IMPROVED:
-                return RefinedPipes.SERVER_CONFIG.getImprovedEnergyPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getCapacity();
             case ADVANCED:
-                return RefinedPipes.SERVER_CONFIG.getAdvancedEnergyPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getCapacity();
             case ELITE:
-                return RefinedPipes.SERVER_CONFIG.getEliteEnergyPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getEliteEnergyPipe().getCapacity();
             case ULTIMATE:
-                return RefinedPipes.SERVER_CONFIG.getUltimateEnergyPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getCapacity();
             default:
                 throw new RuntimeException("?");
         }
@@ -43,15 +43,15 @@ public enum EnergyPipeType {
     public int getTransferRate() {
         switch (this) {
             case BASIC:
-                return RefinedPipes.SERVER_CONFIG.getBasicEnergyPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getBasicEnergyPipe().getTransferRate();
             case IMPROVED:
-                return RefinedPipes.SERVER_CONFIG.getImprovedEnergyPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getTransferRate();
             case ADVANCED:
-                return RefinedPipes.SERVER_CONFIG.getAdvancedEnergyPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getTransferRate();
             case ELITE:
-                return RefinedPipes.SERVER_CONFIG.getEliteEnergyPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getEliteEnergyPipe().getTransferRate();
             case ULTIMATE:
-                return RefinedPipes.SERVER_CONFIG.getUltimateEnergyPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getTransferRate();
             default:
                 throw new RuntimeException("?");
         }
@@ -60,15 +60,15 @@ public enum EnergyPipeType {
     public ResourceLocation getId() {
         switch (this) {
             case BASIC:
-                return new ResourceLocation(RefinedPipes.ID, "basic_energy_pipe");
+                return new ResourceLocation(Pipes.ID, "basic_energy_pipe");
             case IMPROVED:
-                return new ResourceLocation(RefinedPipes.ID, "improved_energy_pipe");
+                return new ResourceLocation(Pipes.ID, "improved_energy_pipe");
             case ADVANCED:
-                return new ResourceLocation(RefinedPipes.ID, "advanced_energy_pipe");
+                return new ResourceLocation(Pipes.ID, "advanced_energy_pipe");
             case ELITE:
-                return new ResourceLocation(RefinedPipes.ID, "elite_energy_pipe");
+                return new ResourceLocation(Pipes.ID, "elite_energy_pipe");
             case ULTIMATE:
-                return new ResourceLocation(RefinedPipes.ID, "ultimate_energy_pipe");
+                return new ResourceLocation(Pipes.ID, "ultimate_energy_pipe");
             default:
                 throw new RuntimeException("?");
         }
@@ -77,15 +77,15 @@ public enum EnergyPipeType {
     public ResourceLocation getNetworkType() {
         switch (this) {
             case BASIC:
-                return new ResourceLocation(RefinedPipes.ID, "basic_energy_network");
+                return new ResourceLocation(Pipes.ID, "basic_energy_network");
             case IMPROVED:
-                return new ResourceLocation(RefinedPipes.ID, "improved_energy_network");
+                return new ResourceLocation(Pipes.ID, "improved_energy_network");
             case ADVANCED:
-                return new ResourceLocation(RefinedPipes.ID, "advanced_energy_network");
+                return new ResourceLocation(Pipes.ID, "advanced_energy_network");
             case ELITE:
-                return new ResourceLocation(RefinedPipes.ID, "elite_energy_network");
+                return new ResourceLocation(Pipes.ID, "elite_energy_network");
             case ULTIMATE:
-                return new ResourceLocation(RefinedPipes.ID, "ultimate_energy_network");
+                return new ResourceLocation(Pipes.ID, "ultimate_energy_network");
             default:
                 throw new RuntimeException("?");
         }

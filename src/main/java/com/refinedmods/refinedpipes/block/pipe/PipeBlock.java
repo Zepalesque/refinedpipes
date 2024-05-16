@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.block;
+package com.refinedmods.refinedpipes.block.pipe;
 
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import com.refinedmods.refinedpipes.item.AttachmentItem;
@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -53,7 +52,7 @@ public abstract class PipeBlock extends Block {
     private final PipeShapeCache shapeCache;
 
     public PipeBlock(PipeShapeCache shapeCache) {
-        super(Block.Properties.of(Material.STONE).strength(0.35F));
+        super(Block.Properties.of().strength(0.35F));
 
         this.shapeCache = shapeCache;
 

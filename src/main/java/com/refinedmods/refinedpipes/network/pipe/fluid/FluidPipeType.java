@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.fluid;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.RefinedPipesBlockEntities;
 import com.refinedmods.refinedpipes.blockentity.FluidPipeBlockEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -43,15 +43,15 @@ public enum FluidPipeType {
     public int getCapacity() {
         switch (this) {
             case BASIC:
-                return RefinedPipes.SERVER_CONFIG.getBasicFluidPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getBasicFluidPipe().getCapacity();
             case IMPROVED:
-                return RefinedPipes.SERVER_CONFIG.getImprovedFluidPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getImprovedFluidPipe().getCapacity();
             case ADVANCED:
-                return RefinedPipes.SERVER_CONFIG.getAdvancedFluidPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getAdvancedFluidPipe().getCapacity();
             case ELITE:
-                return RefinedPipes.SERVER_CONFIG.getEliteFluidPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getEliteFluidPipe().getCapacity();
             case ULTIMATE:
-                return RefinedPipes.SERVER_CONFIG.getUltimateFluidPipe().getCapacity();
+                return Pipes.SERVER_CONFIG.getUltimateFluidPipe().getCapacity();
             default:
                 throw new RuntimeException("?");
         }
@@ -60,15 +60,15 @@ public enum FluidPipeType {
     public int getTransferRate() {
         switch (this) {
             case BASIC:
-                return RefinedPipes.SERVER_CONFIG.getBasicFluidPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getBasicFluidPipe().getTransferRate();
             case IMPROVED:
-                return RefinedPipes.SERVER_CONFIG.getImprovedFluidPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getImprovedFluidPipe().getTransferRate();
             case ADVANCED:
-                return RefinedPipes.SERVER_CONFIG.getAdvancedFluidPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getAdvancedFluidPipe().getTransferRate();
             case ELITE:
-                return RefinedPipes.SERVER_CONFIG.getEliteFluidPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getEliteFluidPipe().getTransferRate();
             case ULTIMATE:
-                return RefinedPipes.SERVER_CONFIG.getUltimateFluidPipe().getTransferRate();
+                return Pipes.SERVER_CONFIG.getUltimateFluidPipe().getTransferRate();
             default:
                 throw new RuntimeException("?");
         }
@@ -77,15 +77,15 @@ public enum FluidPipeType {
     public ResourceLocation getId() {
         switch (this) {
             case BASIC:
-                return new ResourceLocation(RefinedPipes.ID, "basic_fluid_pipe");
+                return new ResourceLocation(Pipes.ID, "basic_fluid_pipe");
             case IMPROVED:
-                return new ResourceLocation(RefinedPipes.ID, "improved_fluid_pipe");
+                return new ResourceLocation(Pipes.ID, "improved_fluid_pipe");
             case ADVANCED:
-                return new ResourceLocation(RefinedPipes.ID, "advanced_fluid_pipe");
+                return new ResourceLocation(Pipes.ID, "advanced_fluid_pipe");
             case ELITE:
-                return new ResourceLocation(RefinedPipes.ID, "elite_fluid_pipe");
+                return new ResourceLocation(Pipes.ID, "elite_fluid_pipe");
             case ULTIMATE:
-                return new ResourceLocation(RefinedPipes.ID, "ultimate_fluid_pipe");
+                return new ResourceLocation(Pipes.ID, "ultimate_fluid_pipe");
             default:
                 throw new RuntimeException("?");
         }
@@ -94,15 +94,15 @@ public enum FluidPipeType {
     public ResourceLocation getNetworkType() {
         switch (this) {
             case BASIC:
-                return new ResourceLocation(RefinedPipes.ID, "basic_fluid_network");
+                return new ResourceLocation(Pipes.ID, "basic_fluid_network");
             case IMPROVED:
-                return new ResourceLocation(RefinedPipes.ID, "improved_fluid_network");
+                return new ResourceLocation(Pipes.ID, "improved_fluid_network");
             case ADVANCED:
-                return new ResourceLocation(RefinedPipes.ID, "advanced_fluid_network");
+                return new ResourceLocation(Pipes.ID, "advanced_fluid_network");
             case ELITE:
-                return new ResourceLocation(RefinedPipes.ID, "elite_fluid_network");
+                return new ResourceLocation(Pipes.ID, "elite_fluid_network");
             case ULTIMATE:
-                return new ResourceLocation(RefinedPipes.ID, "ultimate_fluid_network");
+                return new ResourceLocation(Pipes.ID, "ultimate_fluid_network");
             default:
                 throw new RuntimeException("?");
         }

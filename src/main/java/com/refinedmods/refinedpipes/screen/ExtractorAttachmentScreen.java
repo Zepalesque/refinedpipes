@@ -2,7 +2,7 @@ package com.refinedmods.refinedpipes.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.container.ExtractorAttachmentContainerMenu;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.BlacklistWhitelist;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentContainerMenu> {
-    private static final ResourceLocation RESOURCE = new ResourceLocation(RefinedPipes.ID, "textures/gui/extractor_attachment.png");
+    private static final ResourceLocation RESOURCE = new ResourceLocation(Pipes.ID, "textures/gui/extractor_attachment.png");
 
     private final List<Component> tooltip = new ArrayList<>();
 
@@ -106,7 +106,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
                 IconButtonPreset.SMALL,
                 198,
                 19,
-                new TextComponent("+"),
+                Component.literal("+"),
                 btn -> updateStackSize(1)
             ));
 
@@ -116,7 +116,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
                 IconButtonPreset.SMALL,
                 198,
                 34,
-                new TextComponent("-"),
+                Component.literal("-"),
                 btn -> updateStackSize(-1)
             ));
 
@@ -159,7 +159,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
     }
 
     private MutableComponent getRedstoneModeText(RedstoneMode redstoneMode) {
-        return new TranslatableComponent("misc.refinedpipes.redstone_mode." + redstoneMode.toString().toLowerCase());
+        return Component.translatable("misc.refinedpipes.redstone_mode." + redstoneMode.toString().toLowerCase());
     }
 
     private void setRedstoneMode(IconButton button, RedstoneMode redstoneMode) {
@@ -181,7 +181,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
     }
 
     private MutableComponent getBlacklistWhitelistText(BlacklistWhitelist blacklistWhitelist) {
-        return new TranslatableComponent("misc.refinedpipes.mode." + blacklistWhitelist.toString().toLowerCase());
+        return Component.translatable("misc.refinedpipes.mode." + blacklistWhitelist.toString().toLowerCase());
     }
 
     private void setBlacklistWhitelist(IconButton button, BlacklistWhitelist blacklistWhitelist) {
@@ -207,7 +207,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
     }
 
     private MutableComponent getRoutingModeText(RoutingMode routingMode) {
-        return new TranslatableComponent("misc.refinedpipes.routing_mode." + routingMode.toString().toLowerCase());
+        return Component.translatable("misc.refinedpipes.routing_mode." + routingMode.toString().toLowerCase());
     }
 
     private void setRoutingMode(IconButton button, RoutingMode routingMode) {
@@ -222,7 +222,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
     }
 
     private MutableComponent getExactModeText(boolean exactMode) {
-        return new TranslatableComponent("misc.refinedpipes.exact_mode." + (exactMode ? "on" : "off"));
+        return Component.translatable("misc.refinedpipes.exact_mode." + (exactMode ? "on" : "off"));
     }
 
     private void setExactMode(IconButton button, boolean exactMode) {
@@ -246,16 +246,16 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
         tooltip.clear();
 
         if (blacklistWhitelistButton.isHoveredOrFocused()) {
-            tooltip.add(new TranslatableComponent("misc.refinedpipes.mode"));
+            tooltip.add(Component.translatable("misc.refinedpipes.mode"));
             tooltip.add(getBlacklistWhitelistText(menu.getBlacklistWhitelist()).withStyle(ChatFormatting.GRAY));
         } else if (redstoneModeButton.isHoveredOrFocused()) {
-            tooltip.add(new TranslatableComponent("misc.refinedpipes.redstone_mode"));
+            tooltip.add(Component.translatable("misc.refinedpipes.redstone_mode"));
             tooltip.add(getRedstoneModeText(menu.getRedstoneMode()).withStyle(ChatFormatting.GRAY));
         } else if (routingModeButton != null && routingModeButton.isHoveredOrFocused()) {
-            tooltip.add(new TranslatableComponent("misc.refinedpipes.routing_mode"));
+            tooltip.add(Component.translatable("misc.refinedpipes.routing_mode"));
             tooltip.add(getRoutingModeText(menu.getRoutingMode()).withStyle(ChatFormatting.GRAY));
         } else if (exactModeButton.isHoveredOrFocused()) {
-            tooltip.add(new TranslatableComponent("misc.refinedpipes.exact_mode"));
+            tooltip.add(Component.translatable("misc.refinedpipes.exact_mode"));
             tooltip.add(getExactModeText(menu.isExactMode()).withStyle(ChatFormatting.GRAY));
         }
 

@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.block;
+package com.refinedmods.refinedpipes.block.pipe;
 
 import com.refinedmods.refinedpipes.blockentity.FluidPipeBlockEntity;
 import com.refinedmods.refinedpipes.network.pipe.fluid.FluidPipeType;
@@ -9,6 +9,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class FluidPipeBlock extends PipeBlock implements EntityBlock {
@@ -18,7 +19,6 @@ public class FluidPipeBlock extends PipeBlock implements EntityBlock {
         super(shapeCache);
 
         this.type = type;
-        this.setRegistryName(type.getId());
     }
 
     public FluidPipeType getType() {
@@ -50,7 +50,7 @@ public class FluidPipeBlock extends PipeBlock implements EntityBlock {
         BlockEntity facingBlockEntity = level.getBlockEntity(pos.relative(direction));
 
         return facingBlockEntity != null
-            && facingBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite()).isPresent();
+            && facingBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite()).isPresent();
     }
 
     @Override

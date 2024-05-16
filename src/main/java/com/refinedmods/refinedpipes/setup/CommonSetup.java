@@ -1,10 +1,10 @@
 package com.refinedmods.refinedpipes.setup;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
-import com.refinedmods.refinedpipes.RefinedPipesBlocks;
-import com.refinedmods.refinedpipes.block.EnergyPipeBlock;
-import com.refinedmods.refinedpipes.block.FluidPipeBlock;
-import com.refinedmods.refinedpipes.block.ItemPipeBlock;
+import com.refinedmods.refinedpipes.Pipes;
+import com.refinedmods.refinedpipes.block.PipesBlocks;
+import com.refinedmods.refinedpipes.block.pipe.EnergyPipeBlock;
+import com.refinedmods.refinedpipes.block.pipe.FluidPipeBlock;
+import com.refinedmods.refinedpipes.block.pipe.ItemPipeBlock;
 import com.refinedmods.refinedpipes.blockentity.EnergyPipeBlockEntity;
 import com.refinedmods.refinedpipes.blockentity.FluidPipeBlockEntity;
 import com.refinedmods.refinedpipes.blockentity.ItemPipeBlockEntity;
@@ -51,7 +51,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
 public final class CommonSetup {
-    private static final PipeShapeCache PIPE_SHAPE_CACHE = new PipeShapeCache(new PipeShapeFactory());
 
     private CommonSetup() {
     }
@@ -85,7 +84,7 @@ public final class CommonSetup {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent e) {
-        RefinedPipes.NETWORK.register();
+        Pipes.NETWORK.register();
     }
 
     @SubscribeEvent
@@ -109,21 +108,21 @@ public final class CommonSetup {
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> e) {
-        e.getRegistry().register(new ItemPipeBlockItem(RefinedPipesBlocks.BASIC_ITEM_PIPE));
-        e.getRegistry().register(new ItemPipeBlockItem(RefinedPipesBlocks.IMPROVED_ITEM_PIPE));
-        e.getRegistry().register(new ItemPipeBlockItem(RefinedPipesBlocks.ADVANCED_ITEM_PIPE));
+        e.getRegistry().register(new ItemPipeBlockItem(PipesBlocks.BASIC_ITEM_PIPE));
+        e.getRegistry().register(new ItemPipeBlockItem(PipesBlocks.IMPROVED_ITEM_PIPE));
+        e.getRegistry().register(new ItemPipeBlockItem(PipesBlocks.ADVANCED_ITEM_PIPE));
 
-        e.getRegistry().register(new FluidPipeBlockItem(RefinedPipesBlocks.BASIC_FLUID_PIPE));
-        e.getRegistry().register(new FluidPipeBlockItem(RefinedPipesBlocks.IMPROVED_FLUID_PIPE));
-        e.getRegistry().register(new FluidPipeBlockItem(RefinedPipesBlocks.ADVANCED_FLUID_PIPE));
-        e.getRegistry().register(new FluidPipeBlockItem(RefinedPipesBlocks.ELITE_FLUID_PIPE));
-        e.getRegistry().register(new FluidPipeBlockItem(RefinedPipesBlocks.ULTIMATE_FLUID_PIPE));
+        e.getRegistry().register(new FluidPipeBlockItem(PipesBlocks.BASIC_FLUID_PIPE));
+        e.getRegistry().register(new FluidPipeBlockItem(PipesBlocks.IMPROVED_FLUID_PIPE));
+        e.getRegistry().register(new FluidPipeBlockItem(PipesBlocks.ADVANCED_FLUID_PIPE));
+        e.getRegistry().register(new FluidPipeBlockItem(PipesBlocks.ELITE_FLUID_PIPE));
+        e.getRegistry().register(new FluidPipeBlockItem(PipesBlocks.ULTIMATE_FLUID_PIPE));
 
-        e.getRegistry().register(new EnergyPipeBlockItem(RefinedPipesBlocks.BASIC_ENERGY_PIPE));
-        e.getRegistry().register(new EnergyPipeBlockItem(RefinedPipesBlocks.IMPROVED_ENERGY_PIPE));
-        e.getRegistry().register(new EnergyPipeBlockItem(RefinedPipesBlocks.ADVANCED_ENERGY_PIPE));
-        e.getRegistry().register(new EnergyPipeBlockItem(RefinedPipesBlocks.ELITE_ENERGY_PIPE));
-        e.getRegistry().register(new EnergyPipeBlockItem(RefinedPipesBlocks.ULTIMATE_ENERGY_PIPE));
+        e.getRegistry().register(new EnergyPipeBlockItem(PipesBlocks.BASIC_ENERGY_PIPE));
+        e.getRegistry().register(new EnergyPipeBlockItem(PipesBlocks.IMPROVED_ENERGY_PIPE));
+        e.getRegistry().register(new EnergyPipeBlockItem(PipesBlocks.ADVANCED_ENERGY_PIPE));
+        e.getRegistry().register(new EnergyPipeBlockItem(PipesBlocks.ELITE_ENERGY_PIPE));
+        e.getRegistry().register(new EnergyPipeBlockItem(PipesBlocks.ULTIMATE_ENERGY_PIPE));
 
         for (AttachmentFactory factory : AttachmentRegistry.INSTANCE.all()) {
             e.getRegistry().register(new AttachmentItem(factory));
@@ -132,26 +131,26 @@ public final class CommonSetup {
 
     @SubscribeEvent
     public static void onRegisterBlockEntities(RegistryEvent.Register<BlockEntityType<?>> e) {
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.BASIC), RefinedPipesBlocks.BASIC_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.BASIC.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.IMPROVED), RefinedPipesBlocks.IMPROVED_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.IMPROVED.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.ADVANCED), RefinedPipesBlocks.ADVANCED_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.ADVANCED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.BASIC), PipesBlocks.BASIC_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.BASIC.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.IMPROVED), PipesBlocks.IMPROVED_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.IMPROVED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new ItemPipeBlockEntity(pos, state, ItemPipeType.ADVANCED), PipesBlocks.ADVANCED_ITEM_PIPE).build(null).setRegistryName(ItemPipeType.ADVANCED.getId()));
 
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.BASIC), RefinedPipesBlocks.BASIC_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.BASIC.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.IMPROVED), RefinedPipesBlocks.IMPROVED_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.IMPROVED.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ADVANCED), RefinedPipesBlocks.ADVANCED_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ADVANCED.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ELITE), RefinedPipesBlocks.ELITE_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ELITE.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ULTIMATE), RefinedPipesBlocks.ULTIMATE_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ULTIMATE.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.BASIC), PipesBlocks.BASIC_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.BASIC.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.IMPROVED), PipesBlocks.IMPROVED_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.IMPROVED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ADVANCED), PipesBlocks.ADVANCED_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ADVANCED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ELITE), PipesBlocks.ELITE_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ELITE.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new FluidPipeBlockEntity(pos, state, FluidPipeType.ULTIMATE), PipesBlocks.ULTIMATE_FLUID_PIPE).build(null).setRegistryName(FluidPipeType.ULTIMATE.getId()));
 
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.BASIC), RefinedPipesBlocks.BASIC_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.BASIC.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.IMPROVED), RefinedPipesBlocks.IMPROVED_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.IMPROVED.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ADVANCED), RefinedPipesBlocks.ADVANCED_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ADVANCED.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ELITE), RefinedPipesBlocks.ELITE_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ELITE.getId()));
-        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ULTIMATE), RefinedPipesBlocks.ULTIMATE_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ULTIMATE.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.BASIC), PipesBlocks.BASIC_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.BASIC.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.IMPROVED), PipesBlocks.IMPROVED_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.IMPROVED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ADVANCED), PipesBlocks.ADVANCED_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ADVANCED.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ELITE), PipesBlocks.ELITE_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ELITE.getId()));
+        e.getRegistry().register(BlockEntityType.Builder.of((pos, state) -> new EnergyPipeBlockEntity(pos, state, EnergyPipeType.ULTIMATE), PipesBlocks.ULTIMATE_ENERGY_PIPE).build(null).setRegistryName(EnergyPipeType.ULTIMATE.getId()));
     }
 
     @SubscribeEvent
     public static void onRegisterContainerMenus(RegistryEvent.Register<MenuType<?>> e) {
-        e.getRegistry().register(IForgeMenuType.create(new ExtractorAttachmentContainerFactory()).setRegistryName(RefinedPipes.ID, "extractor_attachment"));
+        e.getRegistry().register(IForgeMenuType.create(new ExtractorAttachmentContainerFactory()).setRegistryName(Pipes.ID, "extractor_attachment"));
     }
 
     @SubscribeEvent

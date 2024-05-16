@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.transport.callback;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.Network;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 
 public class ItemPipeGoneTransportCallback implements TransportCallback {
-    public static final ResourceLocation ID = new ResourceLocation(RefinedPipes.ID, "item_pipe_gone");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item_pipe_gone");
     private static final Logger LOGGER = LogManager.getLogger(ItemPipeGoneTransportCallback.class);
     private final ItemStack stack;
 

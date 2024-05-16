@@ -17,14 +17,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(RefinedPipes.ID)
-public class RefinedPipes {
+@Mod(Pipes.ID)
+public class Pipes {
     public static final String ID = "refinedpipes";
     public static final CreativeModeTab CREATIVE_MODE_TAB = new MainCreativeModeTab();
     public static final RefinedPipesNetwork NETWORK = new RefinedPipesNetwork();
     public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
-    public RefinedPipes() {
+    public Pipes() {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FMLJavaModLoadingContext.get().getModEventBus().register(ClientSetup.class);
         });

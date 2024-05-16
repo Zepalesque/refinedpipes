@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.shape;
 
-import com.refinedmods.refinedpipes.block.PipeBlock;
+import com.refinedmods.refinedpipes.block.pipe.PipeBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;

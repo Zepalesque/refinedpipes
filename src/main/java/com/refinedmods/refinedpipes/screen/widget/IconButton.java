@@ -2,13 +2,13 @@ package com.refinedmods.refinedpipes.screen.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class IconButton extends Button {
-    private static final ResourceLocation RESOURCE = new ResourceLocation(RefinedPipes.ID, "textures/gui/extractor_attachment.png");
+    private static final ResourceLocation RESOURCE = new ResourceLocation(Pipes.ID, "textures/gui/extractor_attachment.png");
 
     private final IconButtonPreset preset;
     private int overlayTexX;

@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.container;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.RefinedPipesContainerMenus;
 import com.refinedmods.refinedpipes.container.slot.FilterSlot;
 import com.refinedmods.refinedpipes.container.slot.FluidFilterSlot;
@@ -95,7 +95,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
     public void setRedstoneMode(RedstoneMode redstoneMode) {
         this.redstoneMode = redstoneMode;
 
-        RefinedPipes.NETWORK.sendToServer(new ChangeRedstoneModeMessage(pos, dir, redstoneMode));
+        Pipes.NETWORK.sendToServer(new ChangeRedstoneModeMessage(pos, dir, redstoneMode));
     }
 
     public BlacklistWhitelist getBlacklistWhitelist() {
@@ -105,7 +105,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
     public void setBlacklistWhitelist(BlacklistWhitelist blacklistWhitelist) {
         this.blacklistWhitelist = blacklistWhitelist;
 
-        RefinedPipes.NETWORK.sendToServer(new ChangeBlacklistWhitelistMessage(pos, dir, blacklistWhitelist));
+        Pipes.NETWORK.sendToServer(new ChangeBlacklistWhitelistMessage(pos, dir, blacklistWhitelist));
     }
 
     public RoutingMode getRoutingMode() {
@@ -115,7 +115,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
     public void setRoutingMode(RoutingMode routingMode) {
         this.routingMode = routingMode;
 
-        RefinedPipes.NETWORK.sendToServer(new ChangeRoutingModeMessage(pos, dir, routingMode));
+        Pipes.NETWORK.sendToServer(new ChangeRoutingModeMessage(pos, dir, routingMode));
     }
 
     public int getStackSize() {
@@ -125,7 +125,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
     public void setStackSize(int stackSize) {
         this.stackSize = stackSize;
 
-        RefinedPipes.NETWORK.sendToServer(new ChangeStackSizeMessage(pos, dir, stackSize));
+        Pipes.NETWORK.sendToServer(new ChangeStackSizeMessage(pos, dir, stackSize));
     }
 
     public boolean isExactMode() {
@@ -135,7 +135,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
     public void setExactMode(boolean exactMode) {
         this.exactMode = exactMode;
 
-        RefinedPipes.NETWORK.sendToServer(new ChangeExactModeMessage(pos, dir, exactMode));
+        Pipes.NETWORK.sendToServer(new ChangeExactModeMessage(pos, dir, exactMode));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.graph.NetworkGraphScannerResult;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
 import com.refinedmods.refinedpipes.network.pipe.PipeFactory;
@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class NetworkManager extends SavedData {
-    private static final String NAME = RefinedPipes.ID + "_networks";
+    private static final String NAME = Pipes.ID + "_networks";
     private static final Logger LOGGER = LogManager.getLogger(NetworkManager.class);
     private final Level level;
     private final Map<String, Network> networks = new HashMap<>();

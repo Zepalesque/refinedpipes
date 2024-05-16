@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.fluid;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.message.FluidPipeMessage;
 import com.refinedmods.refinedpipes.network.fluid.FluidNetwork;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 public class FluidPipe extends Pipe {
-    public static final ResourceLocation ID = new ResourceLocation(RefinedPipes.ID, "fluid");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "fluid");
 
     private final FluidPipeType type;
     private float lastFullness = 0;
@@ -34,7 +34,7 @@ public class FluidPipe extends Pipe {
     }
 
     public void sendFluidPipeUpdate() {
-        RefinedPipes.NETWORK.sendInArea(level, pos, 32, new FluidPipeMessage(pos, ((FluidNetwork) network).getFluidTank().getFluid(), getFullness()));
+        Pipes.NETWORK.sendInArea(level, pos, 32, new FluidPipeMessage(pos, ((FluidNetwork) network).getFluidTank().getFluid(), getFullness()));
     }
 
     public float getFullness() {

@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.item;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.message.ItemTransportMessage;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.item.ItemNetwork;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemPipe extends Pipe {
-    public static final ResourceLocation ID = new ResourceLocation(RefinedPipes.ID, "item");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item");
 
     private final List<ItemTransport> transports = new ArrayList<>();
     private final List<ItemTransport> transportsToAdd = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ItemPipe extends Pipe {
             props.add(transport.createProps(this));
         }
 
-        RefinedPipes.NETWORK.sendInArea(level, pos, 32, new ItemTransportMessage(pos, props));
+        Pipes.NETWORK.sendInArea(level, pos, 32, new ItemTransportMessage(pos, props));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe.item;
 
-import com.refinedmods.refinedpipes.RefinedPipes;
+import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.RefinedPipesBlockEntities;
 import com.refinedmods.refinedpipes.blockentity.ItemPipeBlockEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -24,11 +24,11 @@ public enum ItemPipeType {
     public int getMaxTicksInPipe() {
         switch (this) {
             case BASIC:
-                return RefinedPipes.SERVER_CONFIG.getBasicItemPipe().getMaxTicks();
+                return Pipes.SERVER_CONFIG.getBasicItemPipe().getMaxTicks();
             case IMPROVED:
-                return RefinedPipes.SERVER_CONFIG.getImprovedItemPipe().getMaxTicks();
+                return Pipes.SERVER_CONFIG.getImprovedItemPipe().getMaxTicks();
             case ADVANCED:
-                return RefinedPipes.SERVER_CONFIG.getAdvancedItemPipe().getMaxTicks();
+                return Pipes.SERVER_CONFIG.getAdvancedItemPipe().getMaxTicks();
             default:
                 throw new RuntimeException("?");
         }
@@ -61,11 +61,11 @@ public enum ItemPipeType {
     public ResourceLocation getId() {
         switch (this) {
             case BASIC:
-                return new ResourceLocation(RefinedPipes.ID, "basic_item_pipe");
+                return new ResourceLocation(Pipes.ID, "basic_item_pipe");
             case IMPROVED:
-                return new ResourceLocation(RefinedPipes.ID, "improved_item_pipe");
+                return new ResourceLocation(Pipes.ID, "improved_item_pipe");
             case ADVANCED:
-                return new ResourceLocation(RefinedPipes.ID, "advanced_item_pipe");
+                return new ResourceLocation(Pipes.ID, "advanced_item_pipe");
             default:
                 throw new RuntimeException("?");
         }
