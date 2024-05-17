@@ -7,7 +7,7 @@ import com.refinedmods.refinedpipes.network.pipe.attachment.Attachment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -85,7 +85,7 @@ public class ItemDestinationFinder {
             return false;
         }
 
-        IItemHandler handler = blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, destination.getIncomingDirection().getOpposite()).orElse(null);
+        IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, destination.getIncomingDirection().getOpposite()).orElse(null);
         if (handler == null) {
             return false;
         }

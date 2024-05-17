@@ -133,14 +133,18 @@ repositories {
 
 dependencies {
     minecraft "net.neoforged:forge:${project.mc_version}-${project.neoforge_version}"
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.4.171")
     compileOnly "mezz.jei:jei-1.20.1-common:${project.jei_version}"
     compileOnly "mezz.jei:jei-1.20.1-forge:${project.jei_version}"
+    implementation fg.deobf("curse.maven:jei-238222:${project.jei_curse_version}")
     implementation fg.deobf("curse.maven:jade-324717:${project.jade_version}")
     runtimeOnly fg.deobf("curse.maven:spark-361579:${project.spark_version}")
     runtimeOnly fg.deobf("curse.maven:suggestion-provider-fix-469647:${project.suggestion_provider_fix_version}")
     runtimeOnly fg.deobf("curse.maven:embeddium-908741:${project.embeddium_version}")
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:${project.appleskin_version}")
+
+    runtimeOnly fg.deobf("curse.maven:additional-enchanted-miner-282837:5224921")
+    runtimeOnly fg.deobf("curse.maven:scalable-cats-force-320926:4810184")
+
 
 }
 

@@ -15,13 +15,9 @@ public enum BlacklistWhitelist {
     }
 
     public BlacklistWhitelist next() {
-        switch (this) {
-            case BLACKLIST:
-                return WHITELIST;
-            case WHITELIST:
-                return BLACKLIST;
-            default:
-                return BLACKLIST;
-        }
+        return switch (this) {
+            case BLACKLIST -> WHITELIST;
+            case WHITELIST -> BLACKLIST;
+        };
     }
 }

@@ -22,10 +22,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.Pair;
@@ -116,10 +115,10 @@ public class ExtractorAttachment extends Attachment {
         }
 
         if (network instanceof ItemNetwork) {
-            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, getDirection().getOpposite())
+            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, getDirection().getOpposite())
                 .ifPresent(itemHandler -> update((ItemNetwork) network, destinationPos, itemHandler));
         } else if (network instanceof FluidNetwork) {
-            blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getDirection().getOpposite())
+            blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, getDirection().getOpposite())
                 .ifPresent(fluidHandler -> update((FluidNetwork) network, fluidHandler));
         }
     }
@@ -223,10 +222,8 @@ public class ExtractorAttachment extends Attachment {
             for (int i = 0; i < itemFilter.getSlots(); ++i) {
                 ItemStack filtered = itemFilter.getStackInSlot(i);
 
-                boolean equals = filtered.sameItem(stack);
-                if (exactMode) {
-                    equals = equals && ItemStack.tagMatches(filtered, stack);
-                }
+                boolean equals = exactMode ? ItemStack.isSameItemSameTags(filtered, stack) : ItemStack.isSameItem(filtered, stack);
+
 
                 if (equals) {
                     return true;
@@ -238,10 +235,7 @@ public class ExtractorAttachment extends Attachment {
             for (int i = 0; i < itemFilter.getSlots(); ++i) {
                 ItemStack filtered = itemFilter.getStackInSlot(i);
 
-                boolean equals = filtered.sameItem(stack);
-                if (exactMode) {
-                    equals = equals && ItemStack.tagMatches(filtered, stack);
-                }
+                boolean equals = exactMode ? ItemStack.isSameItemSameTags(filtered, stack) : ItemStack.isSameItem(filtered, stack);
 
                 if (equals) {
                     return false;
@@ -304,7 +298,7 @@ public class ExtractorAttachment extends Attachment {
 
     @Override
     public ItemStack getDrop() {
-        return new ItemStack(type.getItem());
+        return new ItemStack(type.getItem().get());
     }
 
     @Override

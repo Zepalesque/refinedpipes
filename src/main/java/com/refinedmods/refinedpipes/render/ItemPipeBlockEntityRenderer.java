@@ -1,14 +1,14 @@
 package com.refinedmods.refinedpipes.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
+import com.mojang.math.Axis;
 import com.refinedmods.refinedpipes.blockentity.ItemPipeBlockEntity;
 import com.refinedmods.refinedpipes.network.pipe.transport.ItemTransportProps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class ItemPipeBlockEntityRenderer implements BlockEntityRenderer<ItemPipeBlockEntity> {
     @Override
@@ -61,16 +61,17 @@ public class ItemPipeBlockEntityRenderer implements BlockEntityRenderer<ItemPipe
                 0.5 + (dir.getStepY() * v),
                 0.5 + (dir.getStepZ() * v)
             );
-            poseStack.mulPose(new Quaternion(0, (float) ((Minecraft.getInstance().level.getGameTime() / 25D) % (Math.PI * 2) + (partialTicks / 25D)), 0, false));
+            poseStack.mulPose(Axis.YP.rotation((float) ((Minecraft.getInstance().level.getGameTime() / 25D) % (Math.PI * 2) + (partialTicks / 25D))));
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
             Minecraft.getInstance().getItemRenderer().renderStatic(
                 prop.getStack(),
-                ItemTransforms.TransformType.FIXED,
+                    ItemDisplayContext.FIXED,
                 combinedLight,
                 combinedOverlay,
                 poseStack,
                 bufferType,
+                blockEntity.getLevel(),
                 0
             );
 

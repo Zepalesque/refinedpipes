@@ -13,7 +13,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class RefinedPipesNetwork {
     private final String protocolVersion = Integer.toString(1);
     private final SimpleChannel handler = NetworkRegistry.ChannelBuilder
-        .named(new ResourceLocation(Pipes.ID, "main_channel"))
+        .named(new ResourceLocation(Pipes.MODID, "main_channel"))
         .clientAcceptedVersions(protocolVersion::equals)
         .serverAcceptedVersions(protocolVersion::equals)
         .networkProtocolVersion(() -> protocolVersion)

@@ -10,9 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import java.util.*;
 
@@ -88,13 +86,13 @@ public class NetworkGraphScanner {
                 BlockEntity blockEntity = request.getLevel().getBlockEntity(request.getPos());
 
                 if (blockEntity != null) {
-                    blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, request.getDirection().getOpposite())
+                    blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, request.getDirection().getOpposite())
                         .ifPresent(itemHandler -> destinations.add(new Destination(DestinationType.ITEM_HANDLER, request.getPos(), request.getDirection(), connectedPipe)));
 
-                    blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, request.getDirection().getOpposite())
+                    blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, request.getDirection().getOpposite())
                         .ifPresent(fluidHandler -> destinations.add(new Destination(DestinationType.FLUID_HANDLER, request.getPos(), request.getDirection(), connectedPipe)));
 
-                    blockEntity.getCapability(CapabilityEnergy.ENERGY, request.getDirection().getOpposite())
+                    blockEntity.getCapability(ForgeCapabilities.ENERGY, request.getDirection().getOpposite())
                         .ifPresent(energyStorage -> {
                             if (!(energyStorage instanceof EnergyPipeEnergyStorage)) {
                                 destinations.add(new Destination(DestinationType.ENERGY_STORAGE, request.getPos(), request.getDirection(), connectedPipe));

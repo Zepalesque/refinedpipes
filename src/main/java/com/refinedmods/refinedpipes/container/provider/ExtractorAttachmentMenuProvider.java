@@ -5,7 +5,6 @@ import com.refinedmods.refinedpipes.container.ExtractorAttachmentContainerMenu;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,7 +26,7 @@ public class ExtractorAttachmentMenuProvider implements MenuProvider {
     public static void open(Pipe pipe, ExtractorAttachment attachment, ServerPlayer player) {
         ExtractorAttachmentMenuProvider provider = new ExtractorAttachmentMenuProvider(pipe, attachment);
 
-        NetworkHooks.openGui(player, provider, buf -> {
+        NetworkHooks.openScreen(player, provider, buf -> {
             buf.writeBlockPos(pipe.getPos());
             buf.writeByte(attachment.getDirection().ordinal());
             buf.writeByte(attachment.getRedstoneMode().ordinal());
@@ -42,7 +41,7 @@ public class ExtractorAttachmentMenuProvider implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("item." + Pipes.ID + "." + attachment.getType().getId().getPath() + "_attachment");
+        return Component.translatable("item." + Pipes.MODID + "." + attachment.getType().getId().getPath() + "_attachment");
     }
 
     @Nullable

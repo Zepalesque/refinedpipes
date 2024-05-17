@@ -11,16 +11,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import java.util.List;
 
 public class FluidNetwork extends Network {
-    private final FluidTank fluidTank = new FluidTank(FluidAttributes.BUCKET_VOLUME);
+    private final FluidTank fluidTank = new FluidTank(FluidType.BUCKET_VOLUME);
 
     private final FluidPipeType pipeType;
 
@@ -69,7 +69,7 @@ public class FluidNetwork extends Network {
                 continue;
             }
 
-            IFluidHandler handler = blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, destination.getIncomingDirection().getOpposite()).orElse(null);
+            IFluidHandler handler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, destination.getIncomingDirection().getOpposite()).orElse(null);
             if (handler == null) {
                 continue;
             }

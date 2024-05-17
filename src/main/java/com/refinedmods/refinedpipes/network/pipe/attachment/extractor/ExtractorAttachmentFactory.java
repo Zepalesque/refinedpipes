@@ -11,8 +11,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
@@ -73,7 +71,7 @@ public class ExtractorAttachmentFactory implements AttachmentFactory {
 
     @Override
     public ResourceLocation getItemId() {
-        return type.getItemId();
+        return type.getItem().getId();
     }
 
     @Override

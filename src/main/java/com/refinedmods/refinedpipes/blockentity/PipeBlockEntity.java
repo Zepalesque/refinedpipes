@@ -13,8 +13,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
 import javax.annotation.Nonnull;
@@ -68,7 +67,7 @@ public abstract class PipeBlockEntity extends BaseBlockEntity {
     public void setRemoved() {
         super.setRemoved();
 
-        if (!level.isClientSide && !unloaded) {
+        if (level != null && !level.isClientSide && !unloaded) {
             NetworkManager mgr = NetworkManager.get(level);
 
             Pipe pipe = mgr.getPipe(worldPosition);
@@ -89,8 +88,8 @@ public abstract class PipeBlockEntity extends BaseBlockEntity {
 
     @Nonnull
     @Override
-    public IModelData getModelData() {
-        return new ModelDataMap.Builder().withInitial(ATTACHMENTS_PROPERTY, getAttachmentManager().getState()).build();
+    public ModelData getModelData() {
+        return ModelData.builder().with(ATTACHMENTS_PROPERTY, getAttachmentManager().getState()).build();
     }
 
     @Override
@@ -105,9 +104,10 @@ public abstract class PipeBlockEntity extends BaseBlockEntity {
         getAttachmentManager().readUpdate(tag);
 
         requestModelDataUpdate();
-
-        BlockState state = level.getBlockState(worldPosition);
-        level.sendBlockUpdated(worldPosition, state, state, 1 | 2);
+        if (level != null) {
+            BlockState state = level.getBlockState(worldPosition);
+            level.sendBlockUpdated(worldPosition, state, state, 1 | 2);
+        }
     }
 
     protected abstract Pipe createPipe(Level level, BlockPos pos);

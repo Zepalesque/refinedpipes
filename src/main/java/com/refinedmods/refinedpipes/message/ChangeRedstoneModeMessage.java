@@ -41,7 +41,7 @@ public class ChangeRedstoneModeMessage {
 
     public static void handle(ChangeRedstoneModeMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            BlockEntity blockEntity = ctx.get().getSender().level.getBlockEntity(message.pos);
+            BlockEntity blockEntity = ctx.get().getSender().level().getBlockEntity(message.pos);
 
             if (blockEntity instanceof PipeBlockEntity) {
                 Attachment attachment = ((PipeBlockEntity) blockEntity).getAttachmentManager().getAttachment(message.direction);

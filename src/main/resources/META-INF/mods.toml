@@ -4,10 +4,16 @@ issueTrackerURL="https://github.com/refinedmods/refinedpipes"
 license="MIT"
 [[mods]]
 modId="refinedpipes"
-version="${version}"
+version="${file.jarVersion}"
 displayName="Refined Pipes"
 displayURL="https://refinedmods.com/refined-pipes"
 authors="Refined Mods"
 description='''
 Refined Pipes is a Minecraft mod that adds pipes.
 '''
+[[dependencies.refinedpipes]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.21)"
+ordering = "NONE"
+side = "BOTH"

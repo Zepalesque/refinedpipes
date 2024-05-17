@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseContainerMenu extends AbstractContainerMenu {
+public abstract class BaseContainerMenu extends AbstractContainerMenu {
     private final List<FluidFilterSlot> fluidSlots = new ArrayList<>();
     private final List<FluidStack> fluids = new ArrayList<>();
     private final Player player;

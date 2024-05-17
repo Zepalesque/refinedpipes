@@ -17,16 +17,11 @@ public enum RoutingMode {
     }
 
     public RoutingMode next() {
-        switch (this) {
-            case NEAREST:
-                return FURTHEST;
-            case FURTHEST:
-                return RANDOM;
-            case RANDOM:
-                return ROUND_ROBIN;
-            case ROUND_ROBIN:
-            default:
-                return NEAREST;
-        }
+        return switch (this) {
+            case NEAREST -> FURTHEST;
+            case FURTHEST -> RANDOM;
+            case RANDOM -> ROUND_ROBIN;
+            default -> NEAREST;
+        };
     }
 }

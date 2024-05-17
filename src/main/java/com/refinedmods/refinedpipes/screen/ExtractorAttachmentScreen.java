@@ -11,21 +11,22 @@ import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.RoutingMod
 import com.refinedmods.refinedpipes.screen.widget.IconButton;
 import com.refinedmods.refinedpipes.screen.widget.IconButtonPreset;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentContainerMenu> {
-    private static final ResourceLocation RESOURCE = new ResourceLocation(Pipes.ID, "textures/gui/extractor_attachment.png");
+    private static final ResourceLocation RESOURCE = new ResourceLocation(Pipes.MODID, "textures/gui/extractor_attachment.png");
 
     private final List<Component> tooltip = new ArrayList<>();
 
@@ -232,18 +233,25 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
         menu.setExactMode(exactMode);
     }
 
+//    @Override
+//    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+//        super.renderLabels(guiGraphics, mouseX, mouseY);
+//    }
+
     @Override
-    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-        font.draw(poseStack, title.getString(), 7, 7, 4210752);
-        font.draw(poseStack, I18n.get("container.inventory"), 7, 103 - 4, 4210752);
+    protected void renderLabels(GuiGraphics poseStack, int mouseX, int mouseY) {
+        poseStack.drawString(font, title.getString(), 7, 7, 4210752);
+        poseStack.drawString(font, I18n.get("container.inventory"), 7, 103 - 4, 4210752);
 
         if (!menu.isFluidMode()) {
-            font.draw(poseStack, "" + menu.getStackSize(), 143, 83, 4210752);
+            poseStack.drawString(font, "" + menu.getStackSize(), 143, 83, 4210752);
         }
 
         renderTooltip(poseStack, mouseX - leftPos, mouseY - topPos);
 
         tooltip.clear();
+
+
 
         if (blacklistWhitelistButton.isHoveredOrFocused()) {
             tooltip.add(Component.translatable("misc.refinedpipes.mode"));
@@ -260,28 +268,30 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
         }
 
         if (!tooltip.isEmpty()) {
-            renderComponentTooltip(poseStack, tooltip, mouseX - leftPos, mouseY - topPos);
+            poseStack.renderTooltip(font, tooltip, Optional.empty(), mouseX - leftPos, mouseY - topPos);
         }
 
         super.renderLabels(poseStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics poseStack, float partialTicks, int mouseX, int mouseY) {
         renderBackground(poseStack);
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, RESOURCE);
+//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+//        RenderSystem.setShaderTexture(0, RESOURCE);
+
+//        poseStack.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        this.blit(poseStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        poseStack.blit(RESOURCE, i, j, 0, 0, this.imageWidth, this.imageHeight);
 
         int x = 43;
         int y = 18;
         for (int filterSlotId = 1; filterSlotId <= ExtractorAttachment.MAX_FILTER_SLOTS; ++filterSlotId) {
             if (filterSlotId > menu.getExtractorAttachmentType().getFilterSlots()) {
-                this.blit(poseStack, i + x, j + y, 198, 0, 18, 18);
+                poseStack.blit(RESOURCE, i + x, j + y, 198, 0, 18, 18);
             }
 
             if (filterSlotId % 5 == 0) {

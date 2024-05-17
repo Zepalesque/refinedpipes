@@ -1,7 +1,6 @@
 package com.refinedmods.refinedpipes.container;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.RefinedPipesContainerMenus;
 import com.refinedmods.refinedpipes.container.slot.FilterSlot;
 import com.refinedmods.refinedpipes.container.slot.FluidFilterSlot;
 import com.refinedmods.refinedpipes.inventory.fluid.FluidInventory;
@@ -47,7 +46,7 @@ public class ExtractorAttachmentContainerMenu extends BaseContainerMenu {
         ItemStackHandler itemFilter,
         FluidInventory fluidFilter,
         boolean fluidMode) {
-        super(RefinedPipesContainerMenus.EXTRACTOR_ATTACHMENT, windowId, player);
+        super(PipesMenus.EXTRACTOR_ATTACHMENT.get(), windowId, player);
 
         addPlayerInventory(8, 111);
 

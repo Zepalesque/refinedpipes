@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemPipe extends Pipe {
-    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.MODID, "item");
 
     private final List<ItemTransport> transports = new ArrayList<>();
     private final List<ItemTransport> transportsToAdd = new ArrayList<>();

@@ -38,8 +38,10 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
     protected void spawnDrops(Pipe pipe) {
         super.spawnDrops(pipe);
 
-        for (ItemTransport transport : ((ItemPipe) pipe).getTransports()) {
-            Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), transport.getValue());
+        if (level != null) {
+            for (ItemTransport transport : ((ItemPipe) pipe).getTransports()) {
+                Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), transport.getValue());
+            }
         }
     }
 

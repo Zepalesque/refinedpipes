@@ -10,7 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import java.util.List;
@@ -67,7 +67,7 @@ public class EnergyNetwork extends Network {
                     continue;
                 }
 
-                IEnergyStorage handler = blockEntity.getCapability(CapabilityEnergy.ENERGY, destination.getIncomingDirection().getOpposite()).orElse(null);
+                IEnergyStorage handler = blockEntity.getCapability(ForgeCapabilities.ENERGY, destination.getIncomingDirection().getOpposite()).orElse(null);
                 if (handler == null) {
                     continue;
                 }

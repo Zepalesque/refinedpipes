@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +16,7 @@ public abstract class BaseBlockEntity extends BlockEntity {
         super(type, pos, state);
     }
 
-    @Override
+    @Override @NotNull
     public final CompoundTag getUpdateTag() {
         return writeUpdate(super.getUpdateTag());
     }

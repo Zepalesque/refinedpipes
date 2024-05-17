@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 
 public class ItemBounceBackTransportCallback implements TransportCallback {
-    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item_bounce_back");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.MODID, "item_bounce_back");
     private static final Logger LOGGER = LogManager.getLogger(ItemBounceBackTransportCallback.class);
     private final BlockPos originalItemHandlerPosition;
     private final BlockPos bounceBackItemHandlerPosition;

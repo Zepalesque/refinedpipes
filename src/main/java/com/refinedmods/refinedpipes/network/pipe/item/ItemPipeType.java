@@ -1,7 +1,7 @@
 package com.refinedmods.refinedpipes.network.pipe.item;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.RefinedPipesBlockEntities;
+import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.blockentity.ItemPipeBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,16 +22,11 @@ public enum ItemPipeType {
     }
 
     public int getMaxTicksInPipe() {
-        switch (this) {
-            case BASIC:
-                return Pipes.SERVER_CONFIG.getBasicItemPipe().getMaxTicks();
-            case IMPROVED:
-                return Pipes.SERVER_CONFIG.getImprovedItemPipe().getMaxTicks();
-            case ADVANCED:
-                return Pipes.SERVER_CONFIG.getAdvancedItemPipe().getMaxTicks();
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> Pipes.SERVER_CONFIG.getBasicItemPipe().getMaxTicks();
+            case IMPROVED -> Pipes.SERVER_CONFIG.getImprovedItemPipe().getMaxTicks();
+            case ADVANCED -> Pipes.SERVER_CONFIG.getAdvancedItemPipe().getMaxTicks();
+        };
     }
 
     public int getSpeedComparedToBasicTier() {
@@ -46,28 +41,18 @@ public enum ItemPipeType {
     }
 
     public BlockEntityType<ItemPipeBlockEntity> getBlockEntityType() {
-        switch (this) {
-            case BASIC:
-                return RefinedPipesBlockEntities.BASIC_ITEM_PIPE;
-            case IMPROVED:
-                return RefinedPipesBlockEntities.IMPROVED_ITEM_PIPE;
-            case ADVANCED:
-                return RefinedPipesBlockEntities.ADVANCED_ITEM_PIPE;
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> PipesBlockEntities.BASIC_ITEM_PIPE.get();
+            case IMPROVED -> PipesBlockEntities.IMPROVED_ITEM_PIPE.get();
+            case ADVANCED -> PipesBlockEntities.ADVANCED_ITEM_PIPE.get();
+        };
     }
 
     public ResourceLocation getId() {
-        switch (this) {
-            case BASIC:
-                return new ResourceLocation(Pipes.ID, "basic_item_pipe");
-            case IMPROVED:
-                return new ResourceLocation(Pipes.ID, "improved_item_pipe");
-            case ADVANCED:
-                return new ResourceLocation(Pipes.ID, "advanced_item_pipe");
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> new ResourceLocation(Pipes.MODID, "basic_item_pipe");
+            case IMPROVED -> new ResourceLocation(Pipes.MODID, "improved_item_pipe");
+            case ADVANCED -> new ResourceLocation(Pipes.MODID, "advanced_item_pipe");
+        };
     }
 }

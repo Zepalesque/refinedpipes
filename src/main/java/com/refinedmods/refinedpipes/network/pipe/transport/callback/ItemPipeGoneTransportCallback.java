@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 
 public class ItemPipeGoneTransportCallback implements TransportCallback {
-    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "item_pipe_gone");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.MODID, "item_pipe_gone");
     private static final Logger LOGGER = LogManager.getLogger(ItemPipeGoneTransportCallback.class);
     private final ItemStack stack;
 

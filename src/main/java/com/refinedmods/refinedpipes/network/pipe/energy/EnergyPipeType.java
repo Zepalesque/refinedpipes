@@ -1,7 +1,7 @@
 package com.refinedmods.refinedpipes.network.pipe.energy;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.RefinedPipesBlockEntities;
+import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.blockentity.EnergyPipeBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,87 +24,52 @@ public enum EnergyPipeType {
     }
 
     public int getCapacity() {
-        switch (this) {
-            case BASIC:
-                return Pipes.SERVER_CONFIG.getBasicEnergyPipe().getCapacity();
-            case IMPROVED:
-                return Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getCapacity();
-            case ADVANCED:
-                return Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getCapacity();
-            case ELITE:
-                return Pipes.SERVER_CONFIG.getEliteEnergyPipe().getCapacity();
-            case ULTIMATE:
-                return Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getCapacity();
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> Pipes.SERVER_CONFIG.getBasicEnergyPipe().getCapacity();
+            case IMPROVED -> Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getCapacity();
+            case ADVANCED -> Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getCapacity();
+            case ELITE -> Pipes.SERVER_CONFIG.getEliteEnergyPipe().getCapacity();
+            case ULTIMATE -> Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getCapacity();
+        };
     }
 
     public int getTransferRate() {
-        switch (this) {
-            case BASIC:
-                return Pipes.SERVER_CONFIG.getBasicEnergyPipe().getTransferRate();
-            case IMPROVED:
-                return Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getTransferRate();
-            case ADVANCED:
-                return Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getTransferRate();
-            case ELITE:
-                return Pipes.SERVER_CONFIG.getEliteEnergyPipe().getTransferRate();
-            case ULTIMATE:
-                return Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getTransferRate();
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> Pipes.SERVER_CONFIG.getBasicEnergyPipe().getTransferRate();
+            case IMPROVED -> Pipes.SERVER_CONFIG.getImprovedEnergyPipe().getTransferRate();
+            case ADVANCED -> Pipes.SERVER_CONFIG.getAdvancedEnergyPipe().getTransferRate();
+            case ELITE -> Pipes.SERVER_CONFIG.getEliteEnergyPipe().getTransferRate();
+            case ULTIMATE -> Pipes.SERVER_CONFIG.getUltimateEnergyPipe().getTransferRate();
+        };
     }
 
     public ResourceLocation getId() {
-        switch (this) {
-            case BASIC:
-                return new ResourceLocation(Pipes.ID, "basic_energy_pipe");
-            case IMPROVED:
-                return new ResourceLocation(Pipes.ID, "improved_energy_pipe");
-            case ADVANCED:
-                return new ResourceLocation(Pipes.ID, "advanced_energy_pipe");
-            case ELITE:
-                return new ResourceLocation(Pipes.ID, "elite_energy_pipe");
-            case ULTIMATE:
-                return new ResourceLocation(Pipes.ID, "ultimate_energy_pipe");
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> new ResourceLocation(Pipes.MODID, "basic_energy_pipe");
+            case IMPROVED -> new ResourceLocation(Pipes.MODID, "improved_energy_pipe");
+            case ADVANCED -> new ResourceLocation(Pipes.MODID, "advanced_energy_pipe");
+            case ELITE -> new ResourceLocation(Pipes.MODID, "elite_energy_pipe");
+            case ULTIMATE -> new ResourceLocation(Pipes.MODID, "ultimate_energy_pipe");
+        };
     }
 
     public ResourceLocation getNetworkType() {
-        switch (this) {
-            case BASIC:
-                return new ResourceLocation(Pipes.ID, "basic_energy_network");
-            case IMPROVED:
-                return new ResourceLocation(Pipes.ID, "improved_energy_network");
-            case ADVANCED:
-                return new ResourceLocation(Pipes.ID, "advanced_energy_network");
-            case ELITE:
-                return new ResourceLocation(Pipes.ID, "elite_energy_network");
-            case ULTIMATE:
-                return new ResourceLocation(Pipes.ID, "ultimate_energy_network");
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> new ResourceLocation(Pipes.MODID, "basic_energy_network");
+            case IMPROVED -> new ResourceLocation(Pipes.MODID, "improved_energy_network");
+            case ADVANCED -> new ResourceLocation(Pipes.MODID, "advanced_energy_network");
+            case ELITE -> new ResourceLocation(Pipes.MODID, "elite_energy_network");
+            case ULTIMATE -> new ResourceLocation(Pipes.MODID, "ultimate_energy_network");
+        };
     }
 
     public BlockEntityType<EnergyPipeBlockEntity> getBlockEntityType() {
-        switch (this) {
-            case BASIC:
-                return RefinedPipesBlockEntities.BASIC_ENERGY_PIPE;
-            case IMPROVED:
-                return RefinedPipesBlockEntities.IMPROVED_ENERGY_PIPE;
-            case ADVANCED:
-                return RefinedPipesBlockEntities.ADVANCED_ENERGY_PIPE;
-            case ELITE:
-                return RefinedPipesBlockEntities.ELITE_ENERGY_PIPE;
-            case ULTIMATE:
-                return RefinedPipesBlockEntities.ULTIMATE_ENERGY_PIPE;
-            default:
-                throw new RuntimeException("?");
-        }
+        return switch (this) {
+            case BASIC -> PipesBlockEntities.BASIC_ENERGY_PIPE.get();
+            case IMPROVED -> PipesBlockEntities.IMPROVED_ENERGY_PIPE.get();
+            case ADVANCED -> PipesBlockEntities.ADVANCED_ENERGY_PIPE.get();
+            case ELITE -> PipesBlockEntities.ELITE_ENERGY_PIPE.get();
+            case ULTIMATE -> PipesBlockEntities.ULTIMATE_ENERGY_PIPE.get();
+        };
     }
 }

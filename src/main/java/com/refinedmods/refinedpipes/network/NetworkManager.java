@@ -4,7 +4,7 @@ import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.network.graph.NetworkGraphScannerResult;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
 import com.refinedmods.refinedpipes.network.pipe.PipeFactory;
-import com.refinedmods.refinedpipes.network.pipe.PipeRegistry;
+import com.refinedmods.refinedpipes.network.pipe.PipeTypes;
 import com.refinedmods.refinedpipes.network.pipe.item.ItemPipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class NetworkManager extends SavedData {
-    private static final String NAME = Pipes.ID + "_networks";
+    private static final String NAME = Pipes.MODID + "_networks";
     private static final Logger LOGGER = LogManager.getLogger(NetworkManager.class);
     private final Level level;
     private final Map<String, Network> networks = new HashMap<>();
@@ -253,7 +253,7 @@ public class NetworkManager extends SavedData {
             // @BC
             ResourceLocation factoryId = pipeTagCompound.contains("id") ? new ResourceLocation(pipeTagCompound.getString("id")) : ItemPipe.ID;
 
-            PipeFactory factory = PipeRegistry.INSTANCE.getFactory(factoryId);
+            PipeFactory factory = PipeTypes.INSTANCE.getFactory(factoryId);
             if (factory == null) {
                 LOGGER.warn("Pipe {} no longer exists", factoryId.toString());
                 continue;

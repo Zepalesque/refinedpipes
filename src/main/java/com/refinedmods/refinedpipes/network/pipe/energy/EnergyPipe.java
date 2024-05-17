@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class EnergyPipe extends Pipe {
-    public static final ResourceLocation ID = new ResourceLocation(Pipes.ID, "energy");
+    public static final ResourceLocation ID = new ResourceLocation(Pipes.MODID, "energy");
 
     private final EnergyPipeType type;
 

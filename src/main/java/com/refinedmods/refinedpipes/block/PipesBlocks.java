@@ -2,7 +2,7 @@ package com.refinedmods.refinedpipes.block;
 
 import com.google.common.base.Supplier;
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.PipesItems;
+import com.refinedmods.refinedpipes.item.PipesItems;
 import com.refinedmods.refinedpipes.block.pipe.EnergyPipeBlock;
 import com.refinedmods.refinedpipes.block.pipe.FluidPipeBlock;
 import com.refinedmods.refinedpipes.block.pipe.ItemPipeBlock;
@@ -14,21 +14,17 @@ import com.refinedmods.refinedpipes.network.pipe.fluid.FluidPipeType;
 import com.refinedmods.refinedpipes.network.pipe.item.ItemPipeType;
 import com.refinedmods.refinedpipes.network.pipe.shape.PipeShapeCache;
 import com.refinedmods.refinedpipes.network.pipe.shape.PipeShapeFactory;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
 public class PipesBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Pipes.ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Pipes.MODID);
     public static final DeferredRegister<Item> ITEMS = PipesItems.ITEMS;
 
     private static final PipeShapeCache PIPE_SHAPE_CACHE = new PipeShapeCache(new PipeShapeFactory());

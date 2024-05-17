@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ItemNetwork extends Network {
-    public static final ResourceLocation TYPE = new ResourceLocation(Pipes.ID, "item");
+    public static final ResourceLocation TYPE = new ResourceLocation(Pipes.MODID, "item");
 
     private DestinationPathCache destinationPathCache;
 

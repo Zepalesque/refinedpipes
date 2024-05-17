@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class AttachmentItem extends Item {
     private final Lazy<AttachmentFactory> type;
 
-    public AttachmentItem(Supplier<AttachmentFactory> type) {
+    public AttachmentItem(Supplier<? extends AttachmentFactory> type) {
         super(new Item.Properties());
 
         this.type = type::get;

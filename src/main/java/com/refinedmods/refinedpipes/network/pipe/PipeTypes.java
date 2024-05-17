@@ -6,12 +6,12 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PipeRegistry {
-    public static final PipeRegistry INSTANCE = new PipeRegistry();
+public class PipeTypes {
+    public static final PipeTypes INSTANCE = new PipeTypes();
 
     private final Map<ResourceLocation, PipeFactory> factories = new HashMap<>();
 
-    private PipeRegistry() {
+    private PipeTypes() {
     }
 
     public void addFactory(ResourceLocation id, PipeFactory factory) {

@@ -14,14 +14,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 
 public class FluidPipeBlockEntityRenderer implements BlockEntityRenderer<FluidPipeBlockEntity> {
     private static final float INSET = 0.001F;
 
     @Override
-    @SuppressWarnings("deprecation")
     public void render(FluidPipeBlockEntity blockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferType, int combinedLight, int combinedOverlay) {
         Level level = blockEntity.getLevel();
         if (level == null) {
@@ -40,16 +40,17 @@ public class FluidPipeBlockEntityRenderer implements BlockEntityRenderer<FluidPi
         }
 
         int light = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos());
-        FluidAttributes attributes = fluidStack.getFluid().getAttributes();
-        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(attributes.getStillTexture(fluidStack));
-        int fluidColor = attributes.getColor(fluidStack);
+        FluidType attributes = fluidStack.getFluid().getFluidType();
+        IClientFluidTypeExtensions fluidClient = IClientFluidTypeExtensions.of(attributes);
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidClient.getStillTexture(fluidStack));
+        int fluidColor = fluidClient.getTintColor(fluidStack);
 
         int r = fluidColor >> 16 & 0xFF;
         int g = fluidColor >> 8 & 0xFF;
         int b = fluidColor & 0xFF;
         int a = fluidColor >> 24 & 0xFF;
 
-        VertexConsumer buffer = bufferType.getBuffer(RenderType.text(sprite.atlas().location()));
+        VertexConsumer buffer = bufferType.getBuffer(RenderType.text(sprite.atlasLocation()));
 
         float fullness = blockEntity.updateAndGetRenderFullness(partialTicks);
         if (fullness == 0) {

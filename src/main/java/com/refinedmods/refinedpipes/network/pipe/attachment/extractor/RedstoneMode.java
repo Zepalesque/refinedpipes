@@ -19,28 +19,18 @@ public enum RedstoneMode {
     }
 
     public boolean isEnabled(Level level, BlockPos pos) {
-        switch (this) {
-            case IGNORED:
-                return true;
-            case HIGH:
-                return level.hasNeighborSignal(pos);
-            case LOW:
-                return !level.hasNeighborSignal(pos);
-            default:
-                return false;
-        }
+        return switch (this) {
+            case IGNORED -> true;
+            case HIGH -> level.hasNeighborSignal(pos);
+            case LOW -> !level.hasNeighborSignal(pos);
+        };
     }
 
     public RedstoneMode next() {
-        switch (this) {
-            case IGNORED:
-                return HIGH;
-            case HIGH:
-                return LOW;
-            case LOW:
-                return IGNORED;
-            default:
-                return IGNORED;
-        }
+        return switch (this) {
+            case IGNORED -> HIGH;
+            case HIGH -> LOW;
+            case LOW -> IGNORED;
+        };
     }
 }
