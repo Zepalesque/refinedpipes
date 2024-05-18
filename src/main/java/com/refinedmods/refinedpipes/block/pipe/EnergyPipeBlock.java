@@ -49,6 +49,21 @@ public class EnergyPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     @Override
+    protected boolean hasConnectionOrAttachment(BlockGetter level, BlockPos pos, Direction direction) {
+        BlockEntity currentBlockEntity = level.getBlockEntity(pos);
+        if (currentBlockEntity instanceof EnergyPipeBlockEntity energyPipe
+            && energyPipe.getAttachmentManager().hasAttachment(direction)) {
+            return true;
+        }
+
+        BlockState facingState = level.getBlockState(pos.relative(direction));
+
+
+        return facingState.getBlock() instanceof EnergyPipeBlock energyPipe
+            && energyPipe.getType() == type;
+    }
+
+    @Override
     protected boolean hasInvConnection(LevelAccessor level, BlockPos pos, Direction direction) {
         BlockEntity facingBlockEntityy = level.getBlockEntity(pos.relative(direction));
         if (facingBlockEntityy == null) {

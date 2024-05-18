@@ -46,6 +46,20 @@ public class FluidPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     @Override
+    protected boolean hasConnectionOrAttachment(BlockGetter level, BlockPos pos, Direction direction) {
+        BlockEntity currentBlockEntity = level.getBlockEntity(pos);
+        if (currentBlockEntity instanceof FluidPipeBlockEntity fluidPipe
+            && fluidPipe.getAttachmentManager().hasAttachment(direction)) {
+            return true;
+        }
+
+        BlockState facingState = level.getBlockState(pos.relative(direction));
+
+        return facingState.getBlock() instanceof FluidPipeBlock fluidPipe
+            && fluidPipe.getType() == type;
+    }
+
+    @Override
     protected boolean hasInvConnection(LevelAccessor level, BlockPos pos, Direction direction) {
         BlockEntity facingBlockEntity = level.getBlockEntity(pos.relative(direction));
 

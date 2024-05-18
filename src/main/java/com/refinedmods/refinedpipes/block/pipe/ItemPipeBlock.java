@@ -49,6 +49,19 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     @Override
+    protected boolean hasConnectionOrAttachment(BlockGetter world, BlockPos pos, Direction direction) {
+        BlockEntity currentBlockEntity = world.getBlockEntity(pos);
+        if (currentBlockEntity instanceof ItemPipeBlockEntity itemPipe
+            && itemPipe.getAttachmentManager().hasAttachment(direction)) {
+            return true;
+        }
+
+        BlockState facingState = world.getBlockState(pos.relative(direction));
+
+        return facingState.getBlock() instanceof ItemPipeBlock;
+    }
+
+    @Override
     protected boolean hasInvConnection(LevelAccessor world, BlockPos pos, Direction direction) {
         BlockEntity facingBlockEntity = world.getBlockEntity(pos.relative(direction));
 
