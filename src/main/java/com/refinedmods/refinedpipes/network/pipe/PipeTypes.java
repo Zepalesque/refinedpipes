@@ -1,30 +1,41 @@
 package com.refinedmods.refinedpipes.network.pipe;
 
+import com.refinedmods.refinedpipes.Pipes;
+import com.refinedmods.refinedpipes.network.pipe.attachment.AttachmentFactory;
+import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachmentFactory;
+import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachmentType;
+import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipe;
+import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipeFactory;
+import com.refinedmods.refinedpipes.network.pipe.fluid.FluidPipe;
+import com.refinedmods.refinedpipes.network.pipe.fluid.FluidPipeFactory;
+import com.refinedmods.refinedpipes.network.pipe.item.ItemPipe;
+import com.refinedmods.refinedpipes.network.pipe.item.ItemPipeFactory;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
-// TODO: Convert to DeferredRegister
 public class PipeTypes {
-    public static final PipeTypes INSTANCE = new PipeTypes();
 
-    private final Map<ResourceLocation, PipeFactory> factories = new HashMap<>();
-
-    private PipeTypes() {
+    public static PipeFactory get(ResourceLocation resourceLocation) {
+        return FACTORY_REGISTRY.get().getValue(resourceLocation);
     }
 
-    public void addFactory(ResourceLocation id, PipeFactory factory) {
-        if (factories.containsKey(id)) {
-            throw new RuntimeException("Cannot register duplicate pipe factory " + id.toString());
-        }
-
-        factories.put(id, factory);
+    public static ResourceLocation getKey(PipeFactory condition) {
+        return FACTORY_REGISTRY.get().getKey(condition);
     }
 
-    @Nullable
-    public PipeFactory getFactory(ResourceLocation id) {
-        return factories.get(id);
-    }
+    public static final DeferredRegister<PipeFactory> FACTORIES = DeferredRegister.create(Pipes.Keys.PIPE_TYPE, Pipes.MODID);
+    public static final Supplier<IForgeRegistry<PipeFactory>> FACTORY_REGISTRY = FACTORIES.makeRegistry(RegistryBuilder::new);
+
+    public static final RegistryObject<PipeFactory> ITEM = FACTORIES.register(ItemPipe.ID.getPath(), ItemPipeFactory::new);
+    public static final RegistryObject<PipeFactory> FLUID = FACTORIES.register(FluidPipe.ID.getPath(), FluidPipeFactory::new);
+    public static final RegistryObject<PipeFactory> ENERGY = FACTORIES.register(EnergyPipe.ID.getPath(), EnergyPipeFactory::new);
+
 }

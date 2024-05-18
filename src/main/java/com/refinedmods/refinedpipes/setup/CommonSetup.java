@@ -52,10 +52,6 @@ public final class CommonSetup {
             NetworkRegistry.INSTANCE.addFactory(pipeType.getNetworkType(), new EnergyNetworkFactory(pipeType));
         }
 
-        PipeTypes.INSTANCE.addFactory(ItemPipe.ID, new ItemPipeFactory());
-        PipeTypes.INSTANCE.addFactory(FluidPipe.ID, new FluidPipeFactory());
-        PipeTypes.INSTANCE.addFactory(EnergyPipe.ID, new EnergyPipeFactory());
-
         TransportCallbackFactoryRegistry.INSTANCE.addFactory(ItemInsertTransportCallback.ID, ItemInsertTransportCallback::of);
         TransportCallbackFactoryRegistry.INSTANCE.addFactory(ItemBounceBackTransportCallback.ID, ItemBounceBackTransportCallback::of);
         TransportCallbackFactoryRegistry.INSTANCE.addFactory(ItemPipeGoneTransportCallback.ID, ItemPipeGoneTransportCallback::of);

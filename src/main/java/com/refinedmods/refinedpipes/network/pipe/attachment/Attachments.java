@@ -21,8 +21,8 @@ public class Attachments {
         return FACTORY_REGISTRY.get().getValue(resourceLocation);
     }
 
-    public static ResourceLocation getKey(AttachmentFactory condition) {
-        return FACTORY_REGISTRY.get().getKey(condition);
+    public static ResourceLocation getKey(AttachmentFactory factory) {
+        return FACTORY_REGISTRY.get().getKey(factory);
     }
 
     public static final DeferredRegister<AttachmentFactory> FACTORIES = DeferredRegister.create(Pipes.Keys.ATTACHMENT_FACTORY, Pipes.MODID);

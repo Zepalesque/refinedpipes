@@ -5,6 +5,8 @@ import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.config.ServerConfig;
 import com.refinedmods.refinedpipes.container.PipesMenus;
 import com.refinedmods.refinedpipes.item.PipesItems;
+import com.refinedmods.refinedpipes.network.pipe.PipeFactory;
+import com.refinedmods.refinedpipes.network.pipe.PipeTypes;
 import com.refinedmods.refinedpipes.network.pipe.attachment.AttachmentFactory;
 import com.refinedmods.refinedpipes.network.pipe.attachment.Attachments;
 import com.refinedmods.refinedpipes.setup.ClientSetup;
@@ -41,6 +43,7 @@ public class Pipes {
         PipesBlockEntities.BLOCK_ENTITIES.register(bus);
         Attachments.FACTORIES.register(bus);
         PipesMenus.MENU_TYPES.register(bus);
+        PipeTypes.FACTORIES.register(bus);
 
         bus.addListener(CommonSetup::onConstructMod);
         bus.addListener(CommonSetup::onCommonSetup);
@@ -50,6 +53,7 @@ public class Pipes {
 
     public static class Keys {
         public static final ResourceKey<Registry<AttachmentFactory>> ATTACHMENT_FACTORY = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "attatchment_factory"));
+        public static final ResourceKey<Registry<PipeFactory>> PIPE_TYPE = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "pipe_type"));
 
     }
 }

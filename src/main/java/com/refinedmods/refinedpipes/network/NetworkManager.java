@@ -253,7 +253,7 @@ public class NetworkManager extends SavedData {
             // @BC
             ResourceLocation factoryId = pipeTagCompound.contains("id") ? new ResourceLocation(pipeTagCompound.getString("id")) : ItemPipe.ID;
 
-            PipeFactory factory = PipeTypes.INSTANCE.getFactory(factoryId);
+            PipeFactory factory = PipeTypes.get(factoryId);
             if (factory == null) {
                 LOGGER.warn("Pipe {} no longer exists", factoryId.toString());
                 continue;
