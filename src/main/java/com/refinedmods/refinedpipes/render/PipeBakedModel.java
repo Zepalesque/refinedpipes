@@ -32,14 +32,16 @@ public class PipeBakedModel implements BakedModel {
     private static final Map<Direction, Transformation> SIDE_TRANSFORMS = new EnumMap<>(Direction.class);
     private final BakedModel core;
     private final BakedModel extension;
+    private final BakedModel extensionMirror;
     private final BakedModel straight;
     private final BakedModel inventoryAttachment;
     private final Map<ResourceLocation, BakedModel> attachmentModels;
     private final Map<PipeState, List<BakedQuad>> cache = new ConcurrentHashMap<>();
 
-    public PipeBakedModel(BakedModel core, BakedModel extension, BakedModel straight, BakedModel inventoryAttachment, Map<ResourceLocation, BakedModel> attachmentModels) {
+    public PipeBakedModel(BakedModel core, BakedModel extension, BakedModel extensionMirror, BakedModel straight, BakedModel inventoryAttachment, Map<ResourceLocation, BakedModel> attachmentModels) {
         this.core = core;
         this.extension = extension;
+        this.extensionMirror = extensionMirror;
         this.straight = straight;
         this.inventoryAttachment = inventoryAttachment;
         this.attachmentModels = attachmentModels;
@@ -48,15 +50,15 @@ public class PipeBakedModel implements BakedModel {
     
 
     private static List<BakedQuad> getTransformedQuads(BakedModel model, Direction facing, PipeState state, RenderType type) {
+        // TODO: mirror and stuff
         Transformation transformation = SIDE_TRANSFORMS.computeIfAbsent(facing, face -> {
             Quaternionf quaternion;
-            if (face == Direction.UP) {
-                quaternion = TransformationHelper.quatFromXYZ(new Vector3f(90, 0, 0), true);
-            } else if (face == Direction.DOWN) {
+            if (face.getAxis() == Direction.Axis.Y) {
                 quaternion = TransformationHelper.quatFromXYZ(new Vector3f(270, 0, 0), true);
             } else {
-                double r = Math.PI * (360 - face.getOpposite().get2DDataValue() * 90) / 180d;
-
+                // idk if normalized is the right term
+                Direction normalized = Direction.get(Direction.AxisDirection.POSITIVE, face.getAxis());
+                double r = Math.PI * (360 - normalized.get2DDataValue() * 90) / 180d;
                 quaternion = TransformationHelper.quatFromXYZ(new Vector3f(0, (float) r, 0), false);
             }
 
@@ -76,6 +78,8 @@ public class PipeBakedModel implements BakedModel {
 
         return quads.build();
     }
+
+
 
 
     @Override
@@ -102,7 +106,7 @@ public class PipeBakedModel implements BakedModel {
             boolean up = state.getState().getValue(PipeBlock.UP);
             boolean down = state.getState().getValue(PipeBlock.DOWN);
 
-            if (north && south && !east && !west && !up && !down) {
+            /*if (north && south && !east && !west && !up && !down) {
                 quads.addAll(straight.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
             } else if (!north && !south && east && west && !up && !down) {
                 quads.addAll(getTransformedQuads(straight, Direction.EAST, state, renderType));
@@ -110,7 +114,7 @@ public class PipeBakedModel implements BakedModel {
                 quads.addAll(getTransformedQuads(straight, Direction.UP, state, renderType));
             } else if (!north && !south && !east && !west && !up && !down) {
                 quads.addAll(core.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
-            } else {
+            } else {*/
                 quads.addAll(core.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
 
                 if (north) {
@@ -118,11 +122,11 @@ public class PipeBakedModel implements BakedModel {
                 }
 
                 if (east) {
-                    quads.addAll(getTransformedQuads(extension, Direction.EAST, state, renderType));
+                    quads.addAll(getTransformedQuads(extensionMirror, Direction.EAST, state, renderType));
                 }
 
                 if (south) {
-                    quads.addAll(getTransformedQuads(extension, Direction.SOUTH, state, renderType));
+                    quads.addAll(getTransformedQuads(extensionMirror, Direction.SOUTH, state, renderType));
                 }
 
                 if (west) {
@@ -130,13 +134,13 @@ public class PipeBakedModel implements BakedModel {
                 }
 
                 if (up) {
-                    quads.addAll(getTransformedQuads(extension, Direction.UP, state, renderType));
+                    quads.addAll(getTransformedQuads(extensionMirror, Direction.UP, state, renderType));
                 }
 
                 if (down) {
                     quads.addAll(getTransformedQuads(extension, Direction.DOWN, state, renderType));
                 }
-            }
+//            }
         }
 
         if (state.getAttachmentState() != null) {
