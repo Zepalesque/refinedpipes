@@ -4,6 +4,7 @@ import com.refinedmods.refinedpipes.block.PipesBlocks;
 import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.config.ServerConfig;
 import com.refinedmods.refinedpipes.container.PipesMenus;
+import com.refinedmods.refinedpipes.item.PipesCreativeTabs;
 import com.refinedmods.refinedpipes.item.PipesItems;
 import com.refinedmods.refinedpipes.message.PipesPacketHandler;
 import com.refinedmods.refinedpipes.network.pipe.PipeFactory;
@@ -45,6 +46,7 @@ public class Pipes {
         Attachments.FACTORIES.register(bus);
         PipesMenus.MENU_TYPES.register(bus);
         PipeTypes.FACTORIES.register(bus);
+        PipesCreativeTabs.CREATIVE_TABS.register(bus);
 
         bus.addListener(CommonSetup::onConstructMod);
         bus.addListener(CommonSetup::onCommonSetup);
