@@ -244,7 +244,7 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
         poseStack.drawString(font, I18n.get("container.inventory"), 7, 103 - 4, 4210752, false);
 
         if (!menu.isFluidMode()) {
-            poseStack.drawString(font, "" + menu.getStackSize(), 143, 83, 4210752);
+            poseStack.drawString(font, "" + menu.getStackSize(), 143, 83, 4210752, false);
         }
 
         renderTooltip(poseStack, mouseX - leftPos, mouseY - topPos);
