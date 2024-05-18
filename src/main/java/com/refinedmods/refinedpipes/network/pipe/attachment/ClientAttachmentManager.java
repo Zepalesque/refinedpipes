@@ -30,7 +30,7 @@ public class ClientAttachmentManager implements AttachmentManager {
         throw new RuntimeException("Server-side only");
     }
 
-    @Nonnull
+    @Nullable
     @Override
     public ItemStack getPickBlock(Direction dir) {
         return pickBlocks.getOrDefault(dir, ItemStack.EMPTY);

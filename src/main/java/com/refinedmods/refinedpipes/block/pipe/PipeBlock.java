@@ -203,7 +203,10 @@ public abstract class PipeBlock extends Block {
         if (dirClicked != null) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof PipeBlockEntity pipeBlockEntity) {
-                return pipeBlockEntity.getAttachmentManager().getPickBlock(dirClicked);
+                @Nullable ItemStack stack = pipeBlockEntity.getAttachmentManager().getPickBlock(dirClicked);
+                if (stack != null) {
+                    return stack;
+                }
             }
         }
 

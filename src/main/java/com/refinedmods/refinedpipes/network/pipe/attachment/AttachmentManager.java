@@ -16,7 +16,7 @@ public interface AttachmentManager {
 
     void openAttachmentContainer(Direction dir, ServerPlayer player);
 
-    @Nonnull
+    @Nullable
     ItemStack getPickBlock(Direction dir);
 
     @Nullable
