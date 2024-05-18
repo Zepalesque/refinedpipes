@@ -1,0 +1,7 @@
+{
+  "parent": "refinedpipes:block/pipe/item/extension_down",
+  "textures": {
+    "0": "refinedpipes:block/pipe/fluid/basic",
+    "particle": "refinedpipes:block/fluid/basic"
+  }
+}

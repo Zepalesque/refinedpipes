@@ -1,0 +1,7 @@
+{
+  "parent": "refinedpipes:block/pipe/item/extension_east",
+  "textures": {
+    "0": "refinedpipes:block/pipe/fluid/advanced",
+    "particle": "refinedpipes:block/fluid/advanced"
+  }
+}

@@ -1,3 +1,3 @@
 {
-  "parent": "refinedpipes:block/pipe/fluid/basic/straight"
+  "parent": "refinedpipes:block/pipe/fluid/basic/core"
 }

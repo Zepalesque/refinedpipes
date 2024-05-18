@@ -1,36 +1,22 @@
 {
-  "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-  "parent": "block/block",
-  "render_type": "cutout",
-  "textures": {
-    "1": "refinedpipes:block/pipe/attachment/inventory_attachment"
-  },
-  "elements": [
-    {
-      "name": "Attachment",
-      "from": [3, 3, 0],
-      "to": [13, 13, 3],
-      "shade": false,
-      "faces": {
-        "north": { "texture": "#1", "uv": [3, 3, 13, 13] },
-        "east": { "texture": "#1", "uv": [12, 3, 15, 13] },
-        "south": { "texture": "#1", "uv": [3, 3, 13, 13] },
-        "west": { "texture": "#1", "uv": [1, 3, 4, 13] },
-        "up": { "texture": "#1", "uv": [3, 1, 13, 4] },
-        "down": { "texture": "#1", "uv": [3, 12, 13, 15] }
-      }
-    },
-    {
-      "name": "AttachmentSmall",
-      "from": [4, 4, 3],
-      "to": [12, 12, 4],
-      "faces": {
-        "east": { "texture": "#1", "uv": [3, 4, 4, 12] },
-        "south": { "texture": "#1", "uv": [4, 4, 12, 12] },
-        "west": { "texture": "#1", "uv": [12, 4, 13, 12] },
-        "up": { "texture": "#1", "uv": [4, 3, 12, 4] },
-        "down": { "texture": "#1", "uv": [4, 12, 12, 13] }
-      }
-    }
-  ]
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"particle": "refinedpipes:block/pipe/attachment/pipe"
+	},
+	"elements": [
+		{
+			"name": "Attachment",
+			"from": [4, 4, -1],
+			"to": [12, 12, 4],
+			"faces": {
+				"north": {"uv": [4, 4, 12, 12], "texture": "#attachment"},
+				"east": {"uv": [11, 4, 16, 12], "texture": "#attachment"},
+				"south": {"uv": [4, 4, 12, 12], "texture": "#attachment"},
+				"west": {"uv": [0, 4, 5, 12], "texture": "#attachment"},
+				"up": {"uv": [4, 0, 12, 5], "texture": "#attachment"},
+				"down": {"uv": [4, 11, 12, 16], "texture": "#attachment"}
+			}
+		}
+	]
 }

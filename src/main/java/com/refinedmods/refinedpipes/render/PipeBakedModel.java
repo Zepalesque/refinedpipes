@@ -31,34 +31,38 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PipeBakedModel implements BakedModel {
     private static final Map<Direction, Transformation> SIDE_TRANSFORMS = new EnumMap<>(Direction.class);
     private final BakedModel core;
-    private final BakedModel extension;
-    private final BakedModel extensionMirror;
-    private final BakedModel straight;
+    private final BakedModel north;
+    private final BakedModel south;
+    private final BakedModel east;
+    private final BakedModel west;
+    private final BakedModel up;
+    private final BakedModel down;
     private final BakedModel inventoryAttachment;
     private final Map<ResourceLocation, BakedModel> attachmentModels;
     private final Map<PipeState, List<BakedQuad>> cache = new ConcurrentHashMap<>();
 
-    public PipeBakedModel(BakedModel core, BakedModel extension, BakedModel extensionMirror, BakedModel straight, BakedModel inventoryAttachment, Map<ResourceLocation, BakedModel> attachmentModels) {
+    public PipeBakedModel(BakedModel core, BakedModel north, BakedModel south, BakedModel east, BakedModel west, BakedModel up, BakedModel down,  BakedModel inventoryAttachment, Map<ResourceLocation, BakedModel> attachmentModels) {
         this.core = core;
-        this.extension = extension;
-        this.extensionMirror = extensionMirror;
-        this.straight = straight;
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
+        this.up = up;
+        this.down = down;
         this.inventoryAttachment = inventoryAttachment;
         this.attachmentModels = attachmentModels;
     }
 
-    
-
     private static List<BakedQuad> getTransformedQuads(BakedModel model, Direction facing, PipeState state, RenderType type) {
-        // TODO: mirror and stuff
         Transformation transformation = SIDE_TRANSFORMS.computeIfAbsent(facing, face -> {
             Quaternionf quaternion;
-            if (face.getAxis() == Direction.Axis.Y) {
+            if (face == Direction.UP) {
+                quaternion = TransformationHelper.quatFromXYZ(new Vector3f(90, 0, 0), true);
+            } else if (face == Direction.DOWN) {
                 quaternion = TransformationHelper.quatFromXYZ(new Vector3f(270, 0, 0), true);
             } else {
-                // idk if normalized is the right term
-                Direction normalized = Direction.get(Direction.AxisDirection.POSITIVE, face.getAxis());
-                double r = Math.PI * (360 - normalized.get2DDataValue() * 90) / 180d;
+                double r = Math.PI * (360 - face.getOpposite().get2DDataValue() * 90) / 180d;
+
                 quaternion = TransformationHelper.quatFromXYZ(new Vector3f(0, (float) r, 0), false);
             }
 
@@ -78,9 +82,6 @@ public class PipeBakedModel implements BakedModel {
 
         return quads.build();
     }
-
-
-
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction direction, RandomSource random) {
@@ -106,41 +107,31 @@ public class PipeBakedModel implements BakedModel {
             boolean up = state.getState().getValue(PipeBlock.UP);
             boolean down = state.getState().getValue(PipeBlock.DOWN);
 
-            /*if (north && south && !east && !west && !up && !down) {
-                quads.addAll(straight.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
-            } else if (!north && !south && east && west && !up && !down) {
-                quads.addAll(getTransformedQuads(straight, Direction.EAST, state, renderType));
-            } else if (!north && !south && !east && !west && up && down) {
-                quads.addAll(getTransformedQuads(straight, Direction.UP, state, renderType));
-            } else if (!north && !south && !east && !west && !up && !down) {
-                quads.addAll(core.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
-            } else {*/
-                quads.addAll(core.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            quads.addAll(core.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
 
-                if (north) {
-                    quads.addAll(extension.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
-                }
+            if (north) {
+                quads.addAll(this.north.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
 
-                if (east) {
-                    quads.addAll(getTransformedQuads(extensionMirror, Direction.EAST, state, renderType));
-                }
+            if (east) {
+                quads.addAll(this.east.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
 
-                if (south) {
-                    quads.addAll(getTransformedQuads(extensionMirror, Direction.SOUTH, state, renderType));
-                }
+            if (south) {
+                quads.addAll(this.south.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
 
-                if (west) {
-                    quads.addAll(getTransformedQuads(extension, Direction.WEST, state, renderType));
-                }
+            if (west) {
+                quads.addAll(this.west.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
 
-                if (up) {
-                    quads.addAll(getTransformedQuads(extensionMirror, Direction.UP, state, renderType));
-                }
+            if (up) {
+                quads.addAll(this.up.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
 
-                if (down) {
-                    quads.addAll(getTransformedQuads(extension, Direction.DOWN, state, renderType));
-                }
-//            }
+            if (down) {
+                quads.addAll(this.down.getQuads(state.getState(), state.getSide(), state.getRand(), ModelData.EMPTY, renderType));
+            }
         }
 
         if (state.getAttachmentState() != null) {
