@@ -1,9 +1,6 @@
 package com.refinedmods.refinedpipes.network.pipe;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.network.pipe.attachment.AttachmentFactory;
-import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachmentFactory;
-import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachmentType;
 import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipe;
 import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipeFactory;
 import com.refinedmods.refinedpipes.network.pipe.fluid.FluidPipe;
@@ -16,9 +13,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class PipeTypes {
