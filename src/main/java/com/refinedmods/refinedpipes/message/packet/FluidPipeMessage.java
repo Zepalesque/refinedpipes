@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.blockentity.FluidPipeBlockEntity;
 import net.minecraft.client.Minecraft;

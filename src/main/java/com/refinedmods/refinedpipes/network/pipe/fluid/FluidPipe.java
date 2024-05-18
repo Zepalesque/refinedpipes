@@ -1,7 +1,7 @@
 package com.refinedmods.refinedpipes.network.pipe.fluid;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.message.FluidPipeMessage;
+import com.refinedmods.refinedpipes.message.packet.FluidPipeMessage;
 import com.refinedmods.refinedpipes.network.fluid.FluidNetwork;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;
 import net.minecraft.core.BlockPos;

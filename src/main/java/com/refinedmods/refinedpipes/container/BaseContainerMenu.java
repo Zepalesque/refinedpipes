@@ -3,7 +3,7 @@ package com.refinedmods.refinedpipes.container;
 import com.refinedmods.refinedpipes.Pipes;
 import com.refinedmods.refinedpipes.container.slot.FilterSlot;
 import com.refinedmods.refinedpipes.container.slot.FluidFilterSlot;
-import com.refinedmods.refinedpipes.message.FluidFilterSlotUpdateMessage;
+import com.refinedmods.refinedpipes.message.packet.FluidFilterSlotUpdateMessage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

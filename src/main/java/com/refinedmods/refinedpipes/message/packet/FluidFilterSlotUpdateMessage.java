@@ -1,4 +1,4 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.container.slot.FluidFilterSlot;
 import net.minecraft.client.Minecraft;

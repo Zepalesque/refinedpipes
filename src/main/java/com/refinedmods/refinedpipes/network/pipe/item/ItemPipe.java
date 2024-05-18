@@ -1,7 +1,7 @@
 package com.refinedmods.refinedpipes.network.pipe.item;
 
 import com.refinedmods.refinedpipes.Pipes;
-import com.refinedmods.refinedpipes.message.ItemTransportMessage;
+import com.refinedmods.refinedpipes.message.packet.ItemTransportMessage;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.item.ItemNetwork;
 import com.refinedmods.refinedpipes.network.pipe.Pipe;

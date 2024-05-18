@@ -1,6 +1,14 @@
-package com.refinedmods.refinedpipes;
+package com.refinedmods.refinedpipes.message;
 
-import com.refinedmods.refinedpipes.message.*;
+import com.refinedmods.refinedpipes.Pipes;
+import com.refinedmods.refinedpipes.message.packet.ChangeBlacklistWhitelistMessage;
+import com.refinedmods.refinedpipes.message.packet.ChangeExactModeMessage;
+import com.refinedmods.refinedpipes.message.packet.ChangeRedstoneModeMessage;
+import com.refinedmods.refinedpipes.message.packet.ChangeRoutingModeMessage;
+import com.refinedmods.refinedpipes.message.packet.ChangeStackSizeMessage;
+import com.refinedmods.refinedpipes.message.packet.FluidFilterSlotUpdateMessage;
+import com.refinedmods.refinedpipes.message.packet.FluidPipeMessage;
+import com.refinedmods.refinedpipes.message.packet.ItemTransportMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,7 +18,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class RefinedPipesNetwork {
+public class PipesPacketHandler {
     private final String protocolVersion = Integer.toString(1);
     private final SimpleChannel handler = NetworkRegistry.ChannelBuilder
         .named(new ResourceLocation(Pipes.MODID, "main_channel"))

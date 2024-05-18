@@ -5,6 +5,7 @@ import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.config.ServerConfig;
 import com.refinedmods.refinedpipes.container.PipesMenus;
 import com.refinedmods.refinedpipes.item.PipesItems;
+import com.refinedmods.refinedpipes.message.PipesPacketHandler;
 import com.refinedmods.refinedpipes.network.pipe.PipeFactory;
 import com.refinedmods.refinedpipes.network.pipe.PipeTypes;
 import com.refinedmods.refinedpipes.network.pipe.attachment.AttachmentFactory;
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Pipes.MODID)
 public class Pipes {
     public static final String MODID = "refinedpipes";
-    public static final RefinedPipesNetwork NETWORK = new RefinedPipesNetwork();
+    public static final PipesPacketHandler NETWORK = new PipesPacketHandler();
     public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
     public Pipes() {

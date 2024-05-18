@@ -1,9 +1,10 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.pipe.attachment.Attachment;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
+import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.RoutingMode;
 import com.refinedmods.refinedpipes.util.DirectionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,32 +14,32 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChangeStackSizeMessage {
+public class ChangeRoutingModeMessage {
     private final BlockPos pos;
     private final Direction direction;
-    private final int stackSize;
+    private final RoutingMode routingMode;
 
-    public ChangeStackSizeMessage(BlockPos pos, Direction direction, int stackSize) {
+    public ChangeRoutingModeMessage(BlockPos pos, Direction direction, RoutingMode routingMode) {
         this.pos = pos;
         this.direction = direction;
-        this.stackSize = stackSize;
+        this.routingMode = routingMode;
     }
 
-    public static void encode(ChangeStackSizeMessage message, FriendlyByteBuf buf) {
+    public static void encode(ChangeRoutingModeMessage message, FriendlyByteBuf buf) {
         buf.writeBlockPos(message.pos);
         buf.writeByte(message.direction.ordinal());
-        buf.writeInt(message.stackSize);
+        buf.writeByte(message.routingMode.ordinal());
     }
 
-    public static ChangeStackSizeMessage decode(FriendlyByteBuf buf) {
+    public static ChangeRoutingModeMessage decode(FriendlyByteBuf buf) {
         BlockPos pos = buf.readBlockPos();
         Direction direction = DirectionUtil.safeGet(buf.readByte());
-        int stackSize = buf.readInt();
+        RoutingMode redstoneMode = RoutingMode.get(buf.readByte());
 
-        return new ChangeStackSizeMessage(pos, direction, stackSize);
+        return new ChangeRoutingModeMessage(pos, direction, redstoneMode);
     }
 
-    public static void handle(ChangeStackSizeMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ChangeRoutingModeMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             BlockEntity blockEntity = ctx.get().getSender().level().getBlockEntity(message.pos);
 
@@ -46,7 +47,7 @@ public class ChangeStackSizeMessage {
                 Attachment attachment = ((PipeBlockEntity) blockEntity).getAttachmentManager().getAttachment(message.direction);
 
                 if (attachment instanceof ExtractorAttachment) {
-                    ((ExtractorAttachment) attachment).setStackSize(message.stackSize);
+                    ((ExtractorAttachment) attachment).setRoutingMode(message.routingMode);
 
                     NetworkManager.get(blockEntity.getLevel()).setDirty();
                 }

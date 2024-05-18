@@ -1,9 +1,10 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.pipe.attachment.Attachment;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
+import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.RedstoneMode;
 import com.refinedmods.refinedpipes.util.DirectionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,32 +14,32 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChangeExactModeMessage {
+public class ChangeRedstoneModeMessage {
     private final BlockPos pos;
     private final Direction direction;
-    private final boolean exactMode;
+    private final RedstoneMode redstoneMode;
 
-    public ChangeExactModeMessage(BlockPos pos, Direction direction, boolean exactMode) {
+    public ChangeRedstoneModeMessage(BlockPos pos, Direction direction, RedstoneMode redstoneMode) {
         this.pos = pos;
         this.direction = direction;
-        this.exactMode = exactMode;
+        this.redstoneMode = redstoneMode;
     }
 
-    public static void encode(ChangeExactModeMessage message, FriendlyByteBuf buf) {
+    public static void encode(ChangeRedstoneModeMessage message, FriendlyByteBuf buf) {
         buf.writeBlockPos(message.pos);
         buf.writeByte(message.direction.ordinal());
-        buf.writeBoolean(message.exactMode);
+        buf.writeByte(message.redstoneMode.ordinal());
     }
 
-    public static ChangeExactModeMessage decode(FriendlyByteBuf buf) {
+    public static ChangeRedstoneModeMessage decode(FriendlyByteBuf buf) {
         BlockPos pos = buf.readBlockPos();
         Direction direction = DirectionUtil.safeGet(buf.readByte());
-        boolean exactMode = buf.readBoolean();
+        RedstoneMode redstoneMode = RedstoneMode.get(buf.readByte());
 
-        return new ChangeExactModeMessage(pos, direction, exactMode);
+        return new ChangeRedstoneModeMessage(pos, direction, redstoneMode);
     }
 
-    public static void handle(ChangeExactModeMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ChangeRedstoneModeMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             BlockEntity blockEntity = ctx.get().getSender().level().getBlockEntity(message.pos);
 
@@ -46,7 +47,7 @@ public class ChangeExactModeMessage {
                 Attachment attachment = ((PipeBlockEntity) blockEntity).getAttachmentManager().getAttachment(message.direction);
 
                 if (attachment instanceof ExtractorAttachment) {
-                    ((ExtractorAttachment) attachment).setExactMode(message.exactMode);
+                    ((ExtractorAttachment) attachment).setRedstoneMode(message.redstoneMode);
 
                     NetworkManager.get(blockEntity.getLevel()).setDirty();
                 }

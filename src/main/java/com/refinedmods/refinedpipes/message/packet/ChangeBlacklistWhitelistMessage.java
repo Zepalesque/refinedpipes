@@ -1,10 +1,10 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.pipe.attachment.Attachment;
+import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.BlacklistWhitelist;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
-import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.RoutingMode;
 import com.refinedmods.refinedpipes.util.DirectionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,32 +14,32 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChangeRoutingModeMessage {
+public class ChangeBlacklistWhitelistMessage {
     private final BlockPos pos;
     private final Direction direction;
-    private final RoutingMode routingMode;
+    private final BlacklistWhitelist blacklistWhitelist;
 
-    public ChangeRoutingModeMessage(BlockPos pos, Direction direction, RoutingMode routingMode) {
+    public ChangeBlacklistWhitelistMessage(BlockPos pos, Direction direction, BlacklistWhitelist blacklistWhitelist) {
         this.pos = pos;
         this.direction = direction;
-        this.routingMode = routingMode;
+        this.blacklistWhitelist = blacklistWhitelist;
     }
 
-    public static void encode(ChangeRoutingModeMessage message, FriendlyByteBuf buf) {
+    public static void encode(ChangeBlacklistWhitelistMessage message, FriendlyByteBuf buf) {
         buf.writeBlockPos(message.pos);
         buf.writeByte(message.direction.ordinal());
-        buf.writeByte(message.routingMode.ordinal());
+        buf.writeByte(message.blacklistWhitelist.ordinal());
     }
 
-    public static ChangeRoutingModeMessage decode(FriendlyByteBuf buf) {
+    public static ChangeBlacklistWhitelistMessage decode(FriendlyByteBuf buf) {
         BlockPos pos = buf.readBlockPos();
         Direction direction = DirectionUtil.safeGet(buf.readByte());
-        RoutingMode redstoneMode = RoutingMode.get(buf.readByte());
+        BlacklistWhitelist blacklistWhitelist = BlacklistWhitelist.get(buf.readByte());
 
-        return new ChangeRoutingModeMessage(pos, direction, redstoneMode);
+        return new ChangeBlacklistWhitelistMessage(pos, direction, blacklistWhitelist);
     }
 
-    public static void handle(ChangeRoutingModeMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ChangeBlacklistWhitelistMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             BlockEntity blockEntity = ctx.get().getSender().level().getBlockEntity(message.pos);
 
@@ -47,7 +47,7 @@ public class ChangeRoutingModeMessage {
                 Attachment attachment = ((PipeBlockEntity) blockEntity).getAttachmentManager().getAttachment(message.direction);
 
                 if (attachment instanceof ExtractorAttachment) {
-                    ((ExtractorAttachment) attachment).setRoutingMode(message.routingMode);
+                    ((ExtractorAttachment) attachment).setBlacklistWhitelist(message.blacklistWhitelist);
 
                     NetworkManager.get(blockEntity.getLevel()).setDirty();
                 }

@@ -1,9 +1,8 @@
-package com.refinedmods.refinedpipes.message;
+package com.refinedmods.refinedpipes.message.packet;
 
 import com.refinedmods.refinedpipes.blockentity.PipeBlockEntity;
 import com.refinedmods.refinedpipes.network.NetworkManager;
 import com.refinedmods.refinedpipes.network.pipe.attachment.Attachment;
-import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.BlacklistWhitelist;
 import com.refinedmods.refinedpipes.network.pipe.attachment.extractor.ExtractorAttachment;
 import com.refinedmods.refinedpipes.util.DirectionUtil;
 import net.minecraft.core.BlockPos;
@@ -14,32 +13,32 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChangeBlacklistWhitelistMessage {
+public class ChangeStackSizeMessage {
     private final BlockPos pos;
     private final Direction direction;
-    private final BlacklistWhitelist blacklistWhitelist;
+    private final int stackSize;
 
-    public ChangeBlacklistWhitelistMessage(BlockPos pos, Direction direction, BlacklistWhitelist blacklistWhitelist) {
+    public ChangeStackSizeMessage(BlockPos pos, Direction direction, int stackSize) {
         this.pos = pos;
         this.direction = direction;
-        this.blacklistWhitelist = blacklistWhitelist;
+        this.stackSize = stackSize;
     }
 
-    public static void encode(ChangeBlacklistWhitelistMessage message, FriendlyByteBuf buf) {
+    public static void encode(ChangeStackSizeMessage message, FriendlyByteBuf buf) {
         buf.writeBlockPos(message.pos);
         buf.writeByte(message.direction.ordinal());
-        buf.writeByte(message.blacklistWhitelist.ordinal());
+        buf.writeInt(message.stackSize);
     }
 
-    public static ChangeBlacklistWhitelistMessage decode(FriendlyByteBuf buf) {
+    public static ChangeStackSizeMessage decode(FriendlyByteBuf buf) {
         BlockPos pos = buf.readBlockPos();
         Direction direction = DirectionUtil.safeGet(buf.readByte());
-        BlacklistWhitelist blacklistWhitelist = BlacklistWhitelist.get(buf.readByte());
+        int stackSize = buf.readInt();
 
-        return new ChangeBlacklistWhitelistMessage(pos, direction, blacklistWhitelist);
+        return new ChangeStackSizeMessage(pos, direction, stackSize);
     }
 
-    public static void handle(ChangeBlacklistWhitelistMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ChangeStackSizeMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             BlockEntity blockEntity = ctx.get().getSender().level().getBlockEntity(message.pos);
 
@@ -47,7 +46,7 @@ public class ChangeBlacklistWhitelistMessage {
                 Attachment attachment = ((PipeBlockEntity) blockEntity).getAttachmentManager().getAttachment(message.direction);
 
                 if (attachment instanceof ExtractorAttachment) {
-                    ((ExtractorAttachment) attachment).setBlacklistWhitelist(message.blacklistWhitelist);
+                    ((ExtractorAttachment) attachment).setStackSize(message.stackSize);
 
                     NetworkManager.get(blockEntity.getLevel()).setDirty();
                 }
