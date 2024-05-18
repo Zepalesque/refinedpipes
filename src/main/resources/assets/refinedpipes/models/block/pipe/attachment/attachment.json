@@ -3,7 +3,7 @@
   "parent": "block/block",
   "render_type": "cutout",
   "textures": {
-    "1": "refinedpipes:blocks/pipe/attachment/inventory_attachment"
+    "1": "refinedpipes:block/pipe/attachment/inventory_attachment"
   },
   "elements": [
     {

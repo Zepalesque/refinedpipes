@@ -1,6 +1,7 @@
 package com.refinedmods.refinedpipes.setup;
 
 import com.refinedmods.refinedpipes.Pipes;
+import com.refinedmods.refinedpipes.block.PipesBlocks;
 import com.refinedmods.refinedpipes.container.PipesMenus;
 import com.refinedmods.refinedpipes.blockentity.PipesBlockEntities;
 import com.refinedmods.refinedpipes.network.pipe.attachment.AttachmentFactory;
@@ -13,6 +14,8 @@ import com.refinedmods.refinedpipes.render.ItemPipeBlockEntityRenderer;
 import com.refinedmods.refinedpipes.render.PipeBakedModel;
 import com.refinedmods.refinedpipes.screen.ExtractorAttachmentScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -69,7 +72,20 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("deprecation")
     public static void onClientSetup(FMLClientSetupEvent e) {
+        // Backup, resource packs appear to not work normally with these
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.BASIC_ITEM_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.IMPROVED_ITEM_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.ADVANCED_ITEM_PIPE.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.BASIC_FLUID_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.IMPROVED_FLUID_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.ADVANCED_FLUID_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.ELITE_FLUID_PIPE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(PipesBlocks.ULTIMATE_FLUID_PIPE.get(), RenderType.cutout());
+
+
         MenuScreens.register(PipesMenus.EXTRACTOR_ATTACHMENT.get(), ExtractorAttachmentScreen::new);
 
         BlockEntityRenderers.register(PipesBlockEntities.BASIC_ITEM_PIPE.get(), ctx -> new ItemPipeBlockEntityRenderer());

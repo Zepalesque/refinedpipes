@@ -1,7 +1,7 @@
 {
   "parent": "refinedpipes:block/pipe/item/core",
   "textures": {
-    "0": "refinedpipes:blocks/pipe/energy/elite",
-    "particle": "refinedpipes:blocks/pipe/energy/elite"
+    "0": "refinedpipes:block/pipe/energy/elite",
+    "particle": "refinedpipes:block/pipe/energy/elite"
   }
 }
