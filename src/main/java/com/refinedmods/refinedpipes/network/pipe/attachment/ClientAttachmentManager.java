@@ -33,7 +33,7 @@ public class ClientAttachmentManager implements AttachmentManager {
     @Nullable
     @Override
     public ItemStack getPickBlock(Direction dir) {
-        return pickBlocks.getOrDefault(dir, null);
+        return pickBlocks.get(dir);
     }
 
     @Override
