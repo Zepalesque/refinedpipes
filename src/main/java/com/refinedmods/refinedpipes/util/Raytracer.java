@@ -27,8 +27,8 @@ public class Raytracer {
         float f5 = f2 * f3;
         float f6 = f1 * f3;
         double d3 = 5.0D;
-        if (entity instanceof ServerPlayer) {
-            d3 = ((ServerPlayer) entity).getAttribute(ForgeMod.BLOCK_REACH.get()).getValue();
+        if (entity instanceof ServerPlayer sp) {
+            d3 = sp.getAttribute(ForgeMod.BLOCK_REACH.get()).getValue();
         }
         Vec3 end = start.add(f5 * d3, f4 * d3, f6 * d3);
         return Pair.of(start, end);

@@ -52,8 +52,8 @@ public class PipeShapeCache {
         if (ctx instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Player player) {
             Item inHand = player.getMainHandItem().getItem();
 
-            if (inHand instanceof AttachmentItem) {
-                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, ((AttachmentItem) inHand).getFactory());
+            if (inHand instanceof AttachmentItem attachment) {
+                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, attachment.getFactory());
             }
         }
 

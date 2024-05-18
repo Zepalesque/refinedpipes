@@ -200,7 +200,7 @@ public abstract class PipeBlock extends Block {
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         Direction dirClicked = getAttachmentDirectionClicked(pos, target.getLocation());
 
-        if (dirClicked != null) {
+        if (dirClicked != null && this.hasConnection(world, pos, dirClicked)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof PipeBlockEntity pipeBlockEntity) {
                 @Nullable ItemStack stack = pipeBlockEntity.getAttachmentManager().getPickBlock(dirClicked);
@@ -242,7 +242,7 @@ public abstract class PipeBlock extends Block {
         return null;
     }
 
-    protected abstract boolean hasConnection(LevelAccessor world, BlockPos pos, Direction direction);
+    protected abstract boolean hasConnection(BlockGetter world, BlockPos pos, Direction direction);
 
     protected abstract boolean hasInvConnection(LevelAccessor world, BlockPos pos, Direction direction);
 }

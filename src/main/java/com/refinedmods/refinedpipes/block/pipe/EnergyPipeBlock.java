@@ -6,6 +6,7 @@ import com.refinedmods.refinedpipes.network.pipe.energy.EnergyPipeType;
 import com.refinedmods.refinedpipes.network.pipe.shape.PipeShapeCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,23 +29,23 @@ public class EnergyPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     @Override
-    protected boolean hasConnection(LevelAccessor level, BlockPos pos, Direction direction) {
+    protected boolean hasConnection(BlockGetter level, BlockPos pos, Direction direction) {
         BlockEntity currentBlockEntity = level.getBlockEntity(pos);
-        if (currentBlockEntity instanceof EnergyPipeBlockEntity &&
-            ((EnergyPipeBlockEntity) currentBlockEntity).getAttachmentManager().hasAttachment(direction)) {
+        if (currentBlockEntity instanceof EnergyPipeBlockEntity energyPipe
+            && energyPipe.getAttachmentManager().hasAttachment(direction)) {
             return false;
         }
 
         BlockState facingState = level.getBlockState(pos.relative(direction));
         BlockEntity facingBlockEntity = level.getBlockEntity(pos.relative(direction));
 
-        if (facingBlockEntity instanceof EnergyPipeBlockEntity &&
-            ((EnergyPipeBlockEntity) facingBlockEntity).getAttachmentManager().hasAttachment(direction.getOpposite())) {
+        if (facingBlockEntity instanceof EnergyPipeBlockEntity energyPipe
+            && energyPipe.getAttachmentManager().hasAttachment(direction.getOpposite())) {
             return false;
         }
 
-        return facingState.getBlock() instanceof EnergyPipeBlock
-            && ((EnergyPipeBlock) facingState.getBlock()).getType() == type;
+        return facingState.getBlock() instanceof EnergyPipeBlock energyPipe
+            && energyPipe.getType() == type;
     }
 
     @Override

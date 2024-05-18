@@ -5,6 +5,7 @@ import com.refinedmods.refinedpipes.network.pipe.item.ItemPipeType;
 import com.refinedmods.refinedpipes.network.pipe.shape.PipeShapeCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.EntityBlock;
@@ -29,18 +30,18 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     @Override
-    protected boolean hasConnection(LevelAccessor world, BlockPos pos, Direction direction) {
+    protected boolean hasConnection(BlockGetter world, BlockPos pos, Direction direction) {
         BlockEntity currentBlockEntity = world.getBlockEntity(pos);
-        if (currentBlockEntity instanceof ItemPipeBlockEntity &&
-            ((ItemPipeBlockEntity) currentBlockEntity).getAttachmentManager().hasAttachment(direction)) {
+        if (currentBlockEntity instanceof ItemPipeBlockEntity itemPipe
+            && itemPipe.getAttachmentManager().hasAttachment(direction)) {
             return false;
         }
 
         BlockState facingState = world.getBlockState(pos.relative(direction));
         BlockEntity facingBlockEntity = world.getBlockEntity(pos.relative(direction));
 
-        if (facingBlockEntity instanceof ItemPipeBlockEntity &&
-            ((ItemPipeBlockEntity) facingBlockEntity).getAttachmentManager().hasAttachment(direction.getOpposite())) {
+        if (facingBlockEntity instanceof ItemPipeBlockEntity itemPipe
+            && itemPipe.getAttachmentManager().hasAttachment(direction.getOpposite())) {
             return false;
         }
 
