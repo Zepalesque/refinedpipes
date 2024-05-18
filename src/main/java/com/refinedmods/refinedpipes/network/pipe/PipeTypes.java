@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Convert to DeferredRegister
 public class PipeTypes {
     public static final PipeTypes INSTANCE = new PipeTypes();
 
