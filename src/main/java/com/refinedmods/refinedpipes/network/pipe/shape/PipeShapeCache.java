@@ -33,7 +33,6 @@ public class PipeShapeCache {
 
     private final PipeShapeFactory shapeFactory;
     private final List<AABB> attachmentShapes = new ArrayList<>();
-    private final List<AABB> extensionShapes = new ArrayList<>();
     private final Map<PipeShapeCacheEntry, VoxelShape> cache = new HashMap<>();
 
     public PipeShapeCache(PipeShapeFactory shapeFactory) {
@@ -45,37 +44,30 @@ public class PipeShapeCache {
         attachmentShapes.add(PipeShapeProps.WEST_ATTACHMENT_SHAPE.bounds());
         attachmentShapes.add(PipeShapeProps.UP_ATTACHMENT_SHAPE.bounds());
         attachmentShapes.add(PipeShapeProps.DOWN_ATTACHMENT_SHAPE.bounds());
-
-        extensionShapes.add(PipeShapeProps.NORTH_EXTENSION_SHAPE.bounds());
-        extensionShapes.add(PipeShapeProps.EAST_EXTENSION_SHAPE.bounds());
-        extensionShapes.add(PipeShapeProps.SOUTH_EXTENSION_SHAPE.bounds());
-        extensionShapes.add(PipeShapeProps.WEST_EXTENSION_SHAPE.bounds());
-        extensionShapes.add(PipeShapeProps.UP_EXTENSION_SHAPE.bounds());
-        extensionShapes.add(PipeShapeProps.DOWN_EXTENSION_SHAPE.bounds());
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx, boolean hovering) {
-        VoxelShape shape = createShapeIfNeeded(state, world, pos, hovering);
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+        VoxelShape shape = createShapeIfNeeded(state, world, pos);
 
         if (ctx instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Player player) {
             Item inHand = player.getMainHandItem().getItem();
 
             if (inHand instanceof AttachmentItem attachment) {
-                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, attachment.getFactory(), hovering);
+                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, attachment.getFactory());
             }
         }
 
         return shape;
     }
 
-    private VoxelShape addFakeAttachmentShape(Block block, BlockPos pos, Entity entity, VoxelShape shape, AttachmentFactory type, boolean hovering) {
+    private VoxelShape addFakeAttachmentShape(Block block, BlockPos pos, Entity entity, VoxelShape shape, AttachmentFactory type) {
         if (!type.canPlaceOnPipe(block)) {
             return shape;
         }
 
         Pair<Vec3, Vec3> vec = Raytracer.getVectors(entity);
 
-        Raytracer.AdvancedRayTraceResult<BlockHitResult> result = Raytracer.collisionRayTrace(pos, vec.getLeft(), vec.getRight(), hovering ? attachmentShapes : extensionShapes);
+        Raytracer.AdvancedRayTraceResult<BlockHitResult> result = Raytracer.collisionRayTrace(pos, vec.getLeft(), vec.getRight(), attachmentShapes);
         if (result != null) {
             shape = Shapes.or(shape, Shapes.create(result.bounds));
         }
@@ -83,7 +75,7 @@ public class PipeShapeCache {
         return shape;
     }
 
-    private VoxelShape createShapeIfNeeded(BlockState state, BlockGetter world, BlockPos pos, boolean hovering) {
+    private VoxelShape createShapeIfNeeded(BlockState state, BlockGetter world, BlockPos pos) {
         ResourceLocation[] attachmentState;
 
         BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -95,6 +87,6 @@ public class PipeShapeCache {
 
         PipeShapeCacheEntry entry = new PipeShapeCacheEntry(state, attachmentState);
 
-        return cache.computeIfAbsent(entry, e -> shapeFactory.createShape(e.getState(), e.getAttachmentState(), hovering));
+        return cache.computeIfAbsent(entry, e -> shapeFactory.createShape(e.getState(), e.getAttachmentState()));
     }
 }

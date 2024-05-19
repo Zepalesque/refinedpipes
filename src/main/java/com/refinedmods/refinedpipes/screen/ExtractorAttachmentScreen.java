@@ -253,16 +253,16 @@ public class ExtractorAttachmentScreen extends BaseScreen<ExtractorAttachmentCon
 
 
 
-        if (blacklistWhitelistButton.isHovered()) {
+        if (blacklistWhitelistButton.isHoveredOrFocused()) {
             tooltip.add(Component.translatable("misc.refinedpipes.mode"));
             tooltip.add(getBlacklistWhitelistText(menu.getBlacklistWhitelist()).withStyle(ChatFormatting.GRAY));
-        } else if (redstoneModeButton.isHovered()) {
+        } else if (redstoneModeButton.isHoveredOrFocused()) {
             tooltip.add(Component.translatable("misc.refinedpipes.redstone_mode"));
             tooltip.add(getRedstoneModeText(menu.getRedstoneMode()).withStyle(ChatFormatting.GRAY));
-        } else if (routingModeButton != null && routingModeButton.isHovered()) {
+        } else if (routingModeButton != null && routingModeButton.isHoveredOrFocused()) {
             tooltip.add(Component.translatable("misc.refinedpipes.routing_mode"));
             tooltip.add(getRoutingModeText(menu.getRoutingMode()).withStyle(ChatFormatting.GRAY));
-        } else if (exactModeButton != null && exactModeButton.isHovered()) {
+        } else if (exactModeButton.isHoveredOrFocused()) {
             tooltip.add(Component.translatable("misc.refinedpipes.exact_mode"));
             tooltip.add(getExactModeText(menu.isExactMode()).withStyle(ChatFormatting.GRAY));
         }
