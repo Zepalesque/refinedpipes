@@ -210,7 +210,7 @@ public abstract class PipeBlock extends Block {
             }
         }
 
-        return dirClicked != null && !this.hasConnectionOrAttachment(world, pos, dirClicked) ? ItemStack.EMPTY : super.getCloneItemStack(state, target, world, pos, player);
+        return super.getCloneItemStack(state, target, world, pos, player);
     }
 
     @Nullable
