@@ -177,12 +177,12 @@ public abstract class PipeBlock extends Block {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-        return shapeCache.getShape(state, world, pos, ctx, false);
+        return shapeCache.getShape(state, world, pos, ctx, true);
     }
 
     @Override
-    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return shapeCache.getShape(state, level, pos, context, true);
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return shapeCache.getShape(state, level, pos, context, false);
     }
 
     private BlockState getState(BlockState currentState, LevelAccessor world, BlockPos pos) {

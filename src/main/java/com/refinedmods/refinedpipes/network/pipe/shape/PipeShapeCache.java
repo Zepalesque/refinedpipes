@@ -61,21 +61,21 @@ public class PipeShapeCache {
             Item inHand = player.getMainHandItem().getItem();
 
             if (inHand instanceof AttachmentItem attachment) {
-                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, attachment.getFactory());
+                shape = addFakeAttachmentShape(state.getBlock(), pos, player, shape, attachment.getFactory(), hovering);
             }
         }
 
         return shape;
     }
 
-    private VoxelShape addFakeAttachmentShape(Block block, BlockPos pos, Entity entity, VoxelShape shape, AttachmentFactory type) {
+    private VoxelShape addFakeAttachmentShape(Block block, BlockPos pos, Entity entity, VoxelShape shape, AttachmentFactory type, boolean hovering) {
         if (!type.canPlaceOnPipe(block)) {
             return shape;
         }
 
         Pair<Vec3, Vec3> vec = Raytracer.getVectors(entity);
 
-        Raytracer.AdvancedRayTraceResult<BlockHitResult> result = Raytracer.collisionRayTrace(pos, vec.getLeft(), vec.getRight(), attachmentShapes);
+        Raytracer.AdvancedRayTraceResult<BlockHitResult> result = Raytracer.collisionRayTrace(pos, vec.getLeft(), vec.getRight(), hovering ? attachmentShapes : extensionShapes);
         if (result != null) {
             shape = Shapes.or(shape, Shapes.create(result.bounds));
         }
