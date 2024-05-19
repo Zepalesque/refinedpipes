@@ -8,7 +8,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PipeShapeFactory {
-    public VoxelShape createShape(BlockState state, ResourceLocation[] attachmentState) {
+    public VoxelShape createShape(BlockState state, ResourceLocation[] attachmentState, boolean hovering) {
         VoxelShape shape = PipeShapeProps.CORE_SHAPE;
 
         if (state.getValue(PipeBlock.NORTH)) {
@@ -36,27 +36,27 @@ public class PipeShapeFactory {
         }
 
         if (attachmentState[Direction.NORTH.ordinal()] != null || state.getValue(PipeBlock.INV_NORTH)) {
-            shape = Shapes.or(shape, PipeShapeProps.NORTH_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.NORTH_EXTENSION_SHAPE : PipeShapeProps.NORTH_ATTACHMENT_SHAPE);
         }
 
         if (attachmentState[Direction.EAST.ordinal()] != null || state.getValue(PipeBlock.INV_EAST)) {
-            shape = Shapes.or(shape, PipeShapeProps.EAST_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.EAST_EXTENSION_SHAPE : PipeShapeProps.EAST_ATTACHMENT_SHAPE);
         }
 
         if (attachmentState[Direction.SOUTH.ordinal()] != null || state.getValue(PipeBlock.INV_SOUTH)) {
-            shape = Shapes.or(shape, PipeShapeProps.SOUTH_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.SOUTH_EXTENSION_SHAPE : PipeShapeProps.SOUTH_ATTACHMENT_SHAPE);
         }
 
         if (attachmentState[Direction.WEST.ordinal()] != null || state.getValue(PipeBlock.INV_WEST)) {
-            shape = Shapes.or(shape, PipeShapeProps.WEST_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.WEST_EXTENSION_SHAPE : PipeShapeProps.WEST_ATTACHMENT_SHAPE);
         }
 
         if (attachmentState[Direction.UP.ordinal()] != null || state.getValue(PipeBlock.INV_UP)) {
-            shape = Shapes.or(shape, PipeShapeProps.UP_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.UP_EXTENSION_SHAPE : PipeShapeProps.UP_ATTACHMENT_SHAPE);
         }
 
         if (attachmentState[Direction.DOWN.ordinal()] != null || state.getValue(PipeBlock.INV_DOWN)) {
-            shape = Shapes.or(shape, PipeShapeProps.DOWN_ATTACHMENT_SHAPE);
+            shape = Shapes.or(shape, !hovering ? PipeShapeProps.DOWN_EXTENSION_SHAPE : PipeShapeProps.DOWN_ATTACHMENT_SHAPE);
         }
 
         return shape;
