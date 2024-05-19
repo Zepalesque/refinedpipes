@@ -3,6 +3,7 @@ package com.refinedmods.refinedpipes.screen.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.refinedmods.refinedpipes.Pipes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
@@ -28,9 +29,10 @@ public class IconButton extends Button {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-//        super.render(guiGraphics, mouseX, mouseY, partialTick);
-
+    protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        guiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
         int y = preset.getYTexNormal();
         if (!active) {
             y = preset.getYTexDisabled();
@@ -41,27 +43,7 @@ public class IconButton extends Button {
 
         // Fiddling with -1 to remove the blue border
         guiGraphics.blit(RESOURCE, this.getX() + 1, this.getY() + 1, overlayTexX + 1, overlayTexY + 1, this.width - 2, this.height - 2, 256, 256);
+        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
     }
-
-  /*  @Override
-    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        RenderSystem.setShaderTexture(0, RESOURCE);
-
-        RenderSystem.disableDepthTest();
-
-        int y = preset.getYTexNormal();
-        if (!active) {
-            y = preset.getYTexDisabled();
-        } else if (isHovered) {
-            y = preset.getYTexHover();
-        }
-
-        blit(poseStack, this.x, this.y, preset.getXTex(), y, this.width, this.height, 256, 256);
-
-        // Fiddling with -1 to remove the blue border
-        blit(poseStack, this.x + 1, this.y + 1, overlayTexX + 1, overlayTexY + 1, this.width - 2, this.height - 2, 256, 256);
-
-        RenderSystem.enableDepthTest();
-    }*/
 }
